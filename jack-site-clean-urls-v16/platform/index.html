@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jack Cruickshanks | Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --black:#0a0a0a;
+  --lift:#141413;
+  --white:#f5f5f3;
+  --ink:#0f0f0f;
+
+  --dhi:rgba(245,245,243,0.95);
+  --dmd:rgba(245,245,243,0.75);
+  --dlo:rgba(245,245,243,0.42);
+
+  --lhi:rgba(15,15,15,0.92);
+  --lmd:rgba(15,15,15,0.56);
+  --llo:rgba(15,15,15,0.26);
+
+  --bdk:rgba(245,245,243,0.09);
+  --blt:rgba(15,15,15,0.09);
+
+  --H:'Space Grotesk',sans-serif;
+  --M:'Space Mono',monospace;
+
+  --clipbr:polygon(0 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%);
+  --cliptl:polygon(28px 0,100% 0,100% 100%,0 100%,0 28px);
+  --clipboth:polygon(28px 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%,0 28px);
+}
+
+body{
+  font-family:var(--H);font-weight:300;
+  background:var(--white);color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:66px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;
+  background:rgba(10,10,10,0.97);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bdk);
+}
+
+.n-logo{
+  font-family:var(--H);font-weight:600;font-size:0.82rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--dhi);text-decoration:none;
+}
+
+.n-links{
+  display:flex;gap:2.25rem;list-style:none;
+  margin-left:auto;margin-right:2rem;
+}
+
+.n-links a{
+  font-family:var(--H);font-weight:400;font-size:0.7rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(245,245,243,0.92);text-decoration:none;
+  transition:color 0.18s;position:relative;
+}
+
+.n-links a::after{
+  content:'';position:absolute;bottom:-2px;left:0;
+  width:0;height:1px;background:var(--dhi);
+  transition:width 0.22s ease;
+}
+
+.n-links a:hover{color:var(--dhi)}
+.n-links a:hover::after,.n-links a.active::after{width:100%}
+.n-links a.active{color:var(--dhi)}
+
+.n-cta{
+  font-family:var(--H);font-weight:600;font-size:0.72rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--black);background:var(--white);
+  padding:0.75rem 2rem;clip-path:polygon(14% 0,86% 0,100% 14%,100% 86%,86% 100%,14% 100%,0 86%,0 14%);border-radius:0;
+  text-decoration:none;border:1.5px solid var(--white);
+  transition:background 0.18s,color 0.18s;white-space:nowrap;
+}
+
+.n-cta:hover{background:transparent;color:var(--white)}
+
+/* ── HERO — identical to all interior pages ── */
+.hero{
+  position:relative;height:100svh;min-height:640px;
+  background:var(--black);
+  display:flex;align-items:flex-end;overflow:hidden;
+  padding-top:66px;
+}
+
+.hero-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 20%;
+  opacity:0.52;filter:grayscale(8%) contrast(1.06);
+}
+
+.hero-ph{
+  position:absolute;inset:0;
+  background:linear-gradient(158deg,#1d1c1a 0%,#111110 52%,#0a0a0a 100%);
+}
+
+.hero-grain{
+  position:absolute;inset:0;pointer-events:none;opacity:0.028;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:256px;
+}
+
+.hero-veil{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to top,rgba(10,10,10,0.97) 0%,rgba(10,10,10,0.35) 32%,rgba(10,10,10,0.04) 60%,transparent 100%),
+    linear-gradient(to right,rgba(10,10,10,0.4) 0%,transparent 50%);
+}
+
+.hero-body{
+  position:relative;z-index:2;
+  padding:0 2.75rem 4rem;width:100%;
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+
+.hero-eyebrow{
+  font-family:var(--H);font-weight:500;font-size:0.6rem;
+  letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--dlo);display:block;margin-bottom:0.85rem;
+}
+
+.hero-hl{
+  font-family:var(--H);font-weight:700;
+  font-size:clamp(3.5rem,9vw,10rem);
+  line-height:0.87;letter-spacing:-0.02em;color:var(--dhi);
+}
+
+/* right side — removed, hero is heading only */
+.hero-right{ display:none; }
+
+.hero-scroll{
+  position:absolute;bottom:3.75rem;right:2.75rem;z-index:3;
+  display:flex;align-items:center;gap:0.75rem;
+  font-family:var(--H);font-size:0.58rem;letter-spacing:0.26em;
+  text-transform:uppercase;color:var(--dlo);
+}
+
+.scroll-line{
+  width:1px;height:40px;background:var(--bdk);
+  position:relative;overflow:hidden;
+}
+
+.scroll-line::after{
+  content:'';position:absolute;top:-100%;left:0;
+  width:100%;height:100%;background:var(--dmd);
+  animation:scrollTick 2.2s ease-in-out infinite;
+}
+
+@keyframes scrollTick{0%{top:-100%}100%{top:100%}}
+
+/* ── INTRO BAND — dark ── */
+.intro-band{
+  background:var(--black);
+  border-top:1px solid var(--bdk);
+  border-bottom:1px solid var(--bdk);
+  padding:4rem 2.75rem;
+}
+
+.intro-inner{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:220px 1fr;
+  gap:5rem;align-items:center;
+}
+
+.intro-label{
+  font-family:var(--H);font-weight:500;font-size:0.6rem;
+  letter-spacing:0.26em;text-transform:uppercase;color:var(--dmd);
+}
+
+.intro-statement{
+  font-family:var(--H);font-weight:600;
+  font-size:clamp(1.1rem,1.7vw,1.55rem);
+  letter-spacing:-0.015em;line-height:1.35;color:var(--dhi);
+}
+
+/* ── MARQUEE ── */
+.mq{
+  overflow:hidden;background:var(--black);
+  border-bottom:1px solid var(--bdk);padding:0.95rem 0;
+}
+
+.mq-track{
+  display:flex;animation:mq 32s linear infinite;width:max-content;
+}
+
+.mq-item{
+  font-family:var(--H);font-weight:500;font-size:0.68rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--dmd);padding:0 2.5rem;white-space:nowrap;
+  display:flex;align-items:center;gap:2.5rem;
+}
+
+.mq-item::after{content:'·';opacity:0.35}
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+
+/* ── PAGE LENSES — fixed premium cards ── */
+.page-lenses{background:var(--black);border-top:1px solid var(--bdk);border-bottom:1px solid var(--bdk);padding:0 2.75rem}
+.page-lenses-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdk)}
+.lens-card{background:var(--black);padding:2rem 2rem 1.8rem;min-height:150px;position:relative;overflow:hidden}
+.lens-card::before{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--dhi);transition:width .3s ease}
+.lens-card:hover::before{width:100%}
+.lens-num{font-family:var(--M);font-size:.54rem;letter-spacing:.08em;color:var(--dlo);display:block;margin-bottom:.8rem}
+.lens-title{font-family:var(--H);font-weight:700;font-size:.98rem;letter-spacing:-.015em;color:var(--dhi);margin-bottom:.7rem}
+.lens-body{font-size:.8rem;font-weight:300;line-height:1.65;color:var(--dmd);letter-spacing:-.005em;max-width:32ch}
+@media(max-width:900px){.page-lenses{padding:0 1.5rem}.page-lenses-inner{grid-template-columns:1fr}}
+
+/* ── CARD GRID SECTION ── */
+.cards-section{
+  background:var(--white);
+  padding:6rem 2.75rem;
+}
+
+.cards-inner{max-width:1280px;margin:0 auto}
+
+/* Section header — heading only */
+.cards-header{
+  margin-bottom:4rem;padding-bottom:3rem;
+  border-bottom:2px solid var(--lhi);
+}
+
+.cards-h{
+  font-family:var(--H);font-weight:700;
+  font-size:clamp(2.5rem,5vw,5.5rem);
+  letter-spacing:-0.025em;line-height:0.9;color:var(--lhi);
+}
+
+/* 3×3 grid — clean rectangles, no diagonal clips */
+.cards-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.5px;background:var(--blt);
+}
+
+.pri-card{
+  background:var(--white);
+  padding:2.5rem 2rem 2rem;
+  display:flex;flex-direction:column;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:background 0.2s;
+  /* no clip-path — clean rectangle */
+}
+
+/* number — proportionate size, no slashed zero */
+.card-n{
+  font-family:var(--M);font-weight:400;
+  font-size:clamp(1.1rem,2vw,1.6rem);
+  letter-spacing:-0.01em;
+  color:var(--llo);
+  display:block;
+  margin-bottom:1rem;
+  line-height:1;
+  transition:color 0.2s;
+  font-variant-numeric:lining-nums;
+  /* prevent browser rendering slashed/dotted zero */
+  font-feature-settings:"zero" 0,"tnum" 1,"cv01" 1;
+}
+
+/* bottom-left extending line — draws right on hover */
+.pri-card::before{
+  content:'';position:absolute;
+  bottom:0;left:0;
+  width:0;height:2px;
+  background:var(--lhi);
+  transition:width 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.pri-card:hover{background:#ebebea}
+.pri-card:hover .card-n{color:var(--lmd)}
+.pri-card:hover::before{width:100%}
+
+/* active — dark inversion, line stays full width */
+.pri-card.active-card{background:var(--ink)}
+.pri-card.active-card::before{width:100%;background:var(--dhi)}
+.pri-card.active-card .card-n{color:var(--dlo)}
+.pri-card.active-card .card-title{color:var(--dhi)}
+.pri-card.active-card .card-cta{color:var(--dmd)}
+
+.card-title{
+  font-family:var(--H);font-weight:700;
+  font-size:1rem;letter-spacing:-0.02em;
+  line-height:1.25;color:var(--lhi);
+  flex:1;margin-bottom:1rem;
+  transition:color 0.2s;
+}
+
+/* when card is active, trigger hover dims the number further */
+.acc-trigger:hover .acc-n{ color:rgba(245,245,243,0.25); }
+
+.card-cta{
+  font-family:var(--H);font-weight:500;font-size:0.6rem;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--lmd);
+  display:flex;align-items:center;gap:0.4rem;
+  transition:color 0.15s,gap 0.2s;
+}
+
+.card-cta::after{content:'→';font-size:0.72rem;transition:transform 0.2s}
+.pri-card:hover .card-cta{color:var(--lhi);gap:0.65rem}
+.pri-card:hover .card-cta::after{transform:translateX(3px)}
+.pri-card.active-card .card-cta{color:var(--dmd)}
+
+/* ─────────────────────────────────────────
+   ACCORDION DETAIL SECTION
+   World-class. Each item: readtime, abstract,
+   sub-heading with rule, key points grid, full prose.
+───────────────────────────────────────── */
+.detail-section{
+  background:var(--black);
+  padding:6rem 2.75rem;
+  position:relative;
+}
+
+.detail-section::before{
+  content:'';position:absolute;
+  top:0;left:2.75rem;right:2.75rem;
+  height:1px;background:var(--bdk);
+}
+
+.detail-inner{max-width:1280px;margin:0 auto}
+
+.detail-h{
+  font-family:var(--H);font-weight:700;
+  font-size:clamp(2.5rem,5vw,5.5rem);
+  letter-spacing:-0.025em;line-height:0.92;
+  color:var(--dhi);
+  margin-bottom:3.5rem;padding-bottom:0;
+}
+
+/* accordion item */
+.acc-item{border-top:1px solid var(--bdk)}
+.acc-item:last-child{border-bottom:1px solid var(--bdk)}
+
+.acc-trigger{
+  width:100%;background:none;border:none;cursor:pointer;
+  padding:1.85rem 0;
+  display:grid;grid-template-columns:3.5rem 1fr auto;
+  gap:2.5rem;align-items:center;
+  text-align:left;transition:opacity 0.15s;
+  position:relative;
+}
+
+/* left accent bar that appears when item is active */
+.acc-trigger::before{
+  content:'';position:absolute;
+  left:-2.75rem;top:0;bottom:0;
+  width:2px;background:var(--dhi);
+  transform:scaleY(0);transform-origin:top;
+  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+.acc-item.open .acc-trigger::before{transform:scaleY(1)}
+
+.acc-trigger:hover{opacity:0.65}
+.acc-item.open .acc-trigger{opacity:1}
+
+.acc-n{
+  font-family:var(--M);font-size:0.62rem;
+  color:var(--dlo);letter-spacing:0.04em;
+}
+
+.acc-title{
+  font-family:var(--H);font-weight:700;
+  font-size:clamp(1rem,1.8vw,1.35rem);
+  letter-spacing:-0.02em;color:var(--dhi);
+}
+
+.acc-icon{
+  width:30px;height:30px;
+  border:1px solid var(--bdk);border-radius:4px;
+  position:relative;display:flex;
+  align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:border-color 0.2s,background 0.2s;
+}
+
+.acc-item.open .acc-icon{
+  border-color:rgba(245,245,243,0.22);
+  background:rgba(245,245,243,0.04);
+}
+
+.acc-icon::before{content:'';width:10px;height:1px;background:var(--dhi);position:absolute}
+.acc-icon::after{
+  content:'';width:1px;height:10px;background:var(--dhi);position:absolute;
+  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1),opacity 0.3s;
+}
+
+.acc-item.open .acc-icon::after{transform:rotate(90deg);opacity:0}
+
+.acc-body{max-height:0;overflow:hidden;transition:max-height 0.6s cubic-bezier(0.4,0,0.2,1)}
+.acc-item.open .acc-body{max-height:2000px}
+
+/* content layout — full vertical */
+.acc-content{padding:0.5rem 0 3.5rem 6rem}
+
+/* readtime metadata line */
+.acc-meta{
+  font-family:var(--M);font-size:0.58rem;
+  letter-spacing:0.08em;color:var(--dlo);
+  display:flex;align-items:center;
+  margin-bottom:2rem;padding-bottom:1.75rem;
+  border-bottom:1px solid var(--bdk);
+}
+
+.acc-meta-item+.acc-meta-item::before{
+  content:'·';margin:0 0.75rem;opacity:0.35;
+}
+
+/* large abstract — full width, no constraint */
+.acc-abstract{
+  font-family:var(--H);font-weight:600;
+  font-size:clamp(1rem,1.5vw,1.3rem);
+  letter-spacing:-0.015em;line-height:1.48;
+  color:var(--dhi);margin-bottom:2.75rem;
+}
+
+/* sub-section heading with extending rule */
+.acc-sub-h{
+  font-family:var(--H);font-weight:600;font-size:0.6rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--dmd);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+
+.acc-sub-h::after{content:'';flex:1;height:1px;background:var(--bdk)}
+
+/* key points — 2 col grid */
+.acc-points{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--bdk);
+  margin-bottom:3rem;
+}
+
+.acc-point{
+  background:var(--black);padding:1.5rem 1.75rem;
+  transition:background 0.2s;
+}
+
+.acc-point:hover{background:var(--lift)}
+
+.acc-point-title{
+  font-family:var(--H);font-weight:600;font-size:0.82rem;
+  letter-spacing:-0.01em;color:var(--dhi);margin-bottom:0.35rem;
+}
+
+.acc-point-body{
+  font-size:0.86rem;font-weight:300;
+  line-height:1.72;color:var(--dmd);letter-spacing:-0.005em;
+}
+
+/* full prose — FULL WIDTH, not half */
+.acc-paras p{
+  font-size:0.94rem;font-weight:300;
+  line-height:1.92;color:var(--dmd);
+  margin-bottom:1.5rem;letter-spacing:-0.005em;
+  /* full width — no max-width constraint */
+}
+
+.acc-paras p:last-child{margin-bottom:0}
+
+/* ── CTA ── */
+.cta{
+  background:var(--black);
+  padding:7.5rem 2.75rem;
+  position:relative;
+}
+
+.cta::before{
+  content:'';position:absolute;
+  top:0;left:2.75rem;right:2.75rem;
+  height:1px;background:var(--bdk);
+}
+
+.cta-inner{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5.5rem;align-items:center;
+}
+
+.cta-h{
+  font-family:var(--H);font-weight:700;
+  font-size:clamp(3.5rem,7vw,8rem);
+  letter-spacing:-0.03em;line-height:0.88;color:var(--dhi);
+}
+
+.cta-p{
+  font-size:0.97rem;font-weight:300;line-height:1.78;
+  color:var(--dmd);margin-bottom:2.5rem;
+  max-width:40ch;letter-spacing:-0.005em;
+}
+
+.btns{display:flex;gap:1rem;flex-wrap:wrap}
+
+.btn-p{
+  font-family:var(--H);font-weight:600;font-size:0.7rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--black);background:var(--white);
+  padding:0.9rem 2.25rem;clip-path:polygon(14% 0,86% 0,100% 14%,100% 86%,86% 100%,14% 100%,0 86%,0 14%);border-radius:0;
+  text-decoration:none;border:1.5px solid var(--white);
+  transition:background 0.18s,color 0.18s;display:inline-block;
+}
+
+.btn-p:hover{background:transparent;color:var(--white)}
+
+.btn-s{
+  font-family:var(--H);font-weight:400;font-size:0.7rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  background:transparent;color:var(--dmd);
+  border:1px solid var(--bdk);
+  padding:0.9rem 2.25rem;clip-path:polygon(14% 0,86% 0,100% 14%,100% 86%,86% 100%,14% 100%,0 86%,0 14%);border-radius:0;
+  text-decoration:none;transition:color 0.15s,border-color 0.15s;
+  display:inline-block;
+}
+
+.btn-s:hover{color:var(--dhi);border-color:rgba(245,245,243,0.25)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--black);
+  border-top:1px solid var(--bdk);
+  padding:2rem 2.75rem;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+}
+
+.ft-logo{
+  font-family:var(--H);font-weight:600;font-size:0.65rem;
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--dlo);
+}
+
+.ft-links{list-style:none;display:flex;gap:2rem}
+
+.ft-links a{
+  font-family:var(--H);font-size:0.6rem;font-weight:400;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--dlo);text-decoration:none;transition:color 0.15s;
+}
+
+.ft-links a:hover{color:var(--dmd)}
+
+.ft-copy{
+  font-family:var(--H);font-size:0.58rem;
+  letter-spacing:0.1em;color:var(--dlo);
+  text-align:right;opacity:0.65;
+}
+
+/* ── FADE UP ── */
+.fade-up{opacity:0;transform:translateY(16px);transition:opacity 0.65s ease,transform 0.65s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  .acc-content{padding:1.5rem 0 2rem 0 !important}
+  .acc-abstract{font-size:0.88rem !important;max-width:100% !important}
+  .acc-paras p{font-size:0.86rem !important}
+  nav{padding:0 1.5rem}
+  .n-links{display:none}
+  .hero-body{flex-direction:column;align-items:flex-start;gap:2rem;padding:0 1.5rem 3rem}
+  .hero-right{text-align:left}
+  .hero-scroll{display:none}
+  .intro-band{padding:3.5rem 1.5rem}
+  .intro-inner{grid-template-columns:1fr;gap:1.5rem}
+  .cards-section{padding:5rem 1.5rem}
+  .cards-header{grid-template-columns:1fr;gap:2rem}
+  .cards-grid{grid-template-columns:1fr}
+  .detail-section{padding:5rem 1.5rem}
+  .detail-section::before{left:1.5rem;right:1.5rem}
+  .acc-content{padding:0.5rem 0 2.5rem 3.5rem}
+  .acc-points{grid-template-columns:1fr}
+  .acc-trigger::before{left:-1.5rem}
+  .cta{padding:5rem 1.5rem}
+  .cta::before{left:1.5rem;right:1.5rem}
+  .cta-inner{grid-template-columns:1fr;gap:3rem}
+  footer{grid-template-columns:1fr;gap:1rem;padding:1.5rem;text-align:center}
+  .ft-copy{text-align:center}
+  .ft-links{justify-content:center;flex-wrap:wrap}
+}
+
+
+/* ── MOBILE NAV ── */
+.n-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:4px;position:relative;z-index:2;width:32px;height:32px}
+.n-hamburger span{display:block;height:1.5px;background:var(--dhi);transition:transform 0.28s cubic-bezier(0.4,0,0.2,1),opacity 0.2s;transform-origin:center}
+nav.menu-open .n-hamburger span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+nav.menu-open .n-hamburger span:nth-child(2){opacity:0;transform:scaleX(0)}
+nav.menu-open .n-hamburger span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.n-mobile-menu{display:none;position:fixed;top:66px;left:0;right:0;background:rgba(10,10,10,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bdk);z-index:190;max-height:0;overflow:hidden;transition:max-height 0.38s cubic-bezier(0.4,0,0.2,1)}
+nav.menu-open .n-mobile-menu{max-height:400px}
+.n-mobile-inner{padding:1.5rem 2.5rem 2rem;display:flex;flex-direction:column;gap:0}
+.n-mobile-link{font-family:var(--H);font-weight:400;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,245,243,0.72);text-decoration:none;padding:1rem 0;border-bottom:1px solid var(--bdk);transition:color 0.15s;display:flex;align-items:center;justify-content:space-between}
+.n-mobile-link::after{content:'→';font-size:0.72rem;opacity:0.3}
+.n-mobile-link:hover,.n-mobile-link.active{color:var(--dhi)}
+.n-mobile-cta{font-family:var(--H);font-weight:600;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--black);background:var(--white);padding:0.85rem 0;clip-path:polygon(14% 0,86% 0,100% 14%,100% 86%,86% 100%,14% 100%,0 86%,0 14%);border-radius:0;text-decoration:none;text-align:center;margin-top:1.25rem;display:block;transition:opacity 0.15s}
+.n-mobile-cta:hover{opacity:0.85}
+
+/* ── COOKIE BANNER ── */
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:500;background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--bdk);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1)}
+.cookie-banner.visible{transform:translateY(0)}
+.cookie-text{font-family:var(--H);font-weight:300;font-size:0.78rem;color:var(--dmd);line-height:1.6;letter-spacing:-0.005em;max-width:60ch}
+.cookie-text a{color:var(--dhi);text-decoration:underline;text-underline-offset:2px;opacity:0.7}
+.cookie-text a:hover{opacity:1}
+.cookie-actions{display:flex;gap:0.75rem;flex-shrink:0}
+.cookie-accept,.cookie-decline{font-family:var(--H);font-weight:600;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;border:none;cursor:pointer;padding:0.7rem 1.5rem;transition:opacity 0.15s;white-space:nowrap}
+.cookie-accept{background:var(--white);color:var(--black);clip-path:var(--clipboth)}
+.cookie-accept:hover{opacity:0.82}
+.cookie-decline{background:transparent;color:var(--dlo);border:1px solid var(--bdk);border-radius:4px}
+.cookie-decline:hover{color:var(--dmd);border-color:rgba(245,245,243,0.2)}
+
+@media(max-width:900px){
+  .n-links{display:none !important}
+  .n-cta{display:none !important}
+  .n-hamburger{display:flex !important}
+  .n-mobile-menu{display:block !important}
+  nav{padding:0 1.5rem !important}
+  .cookie-banner{flex-direction:column;align-items:flex-start;padding:1.25rem 1.5rem;gap:1rem}
+  .cookie-actions{width:100%}
+  .cookie-accept,.cookie-decline{flex:1;text-align:center}
+}
+
+
+/* ── PROGRESS LINE ── */
+.progress-line{position:fixed;top:0;left:0;z-index:400;height:2px;width:0%;background:rgba(245,245,243,0.35);pointer-events:none;transition:width 0.08s linear}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(15,15,15,0.28);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(15,15,15,0.48)}
+* {scrollbar-width:thin;scrollbar-color:rgba(15,15,15,0.28) transparent}
+
+
+
+/* FINAL PRODUCTION POLISH — consistency pass */
+:root{--ui-radius:4px;}
+.n-cta,.n-mobile-cta,.btn-p,.btn-s,.form-tab,.pref-btn,.amt-btn,.freq-btn,.donate-submit,.load-btn,.cookie-accept,.cookie-decline,.gal-btn,button[type="submit"],input[type="submit"]{clip-path:none !important;border-radius:var(--ui-radius) !important;}
+.n-cta,.n-mobile-cta,.btn-p,.btn-s,.donate-submit,.load-btn,.gal-btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;}
+.n-cta{padding:.78rem 2.05rem !important}.btn-p,.btn-s{padding:.92rem 2.15rem !important}
+.hero-hl{letter-spacing:-.035em}.hero-eyebrow,.s-tag,.intro-label,.ro-eyebrow,.sidebar-label{letter-spacing:.24em}
+.page-lenses{background:var(--black)!important;border-top:1px solid var(--bdk);border-bottom:1px solid var(--bdk);padding:0 2.75rem!important}.page-lenses-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdk)}.lens-card{background:var(--black)!important;color:inherit;text-decoration:none;display:block;padding:2rem 2rem 1.8rem;min-height:150px;position:relative;overflow:hidden;cursor:pointer;transition:background .18s ease}.lens-card:before{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--dhi);transition:width .28s ease}.lens-card:hover{background:var(--lift)!important}.lens-card:hover:before{width:100%}.lens-num{font-family:var(--M);font-size:.58rem;color:var(--dlo);display:block;margin-bottom:1.65rem}.lens-title{font-family:var(--H);font-weight:600;font-size:.95rem;color:var(--dhi);letter-spacing:-.01em;margin-bottom:.35rem}.lens-body{font-family:var(--H);font-weight:300;font-size:.82rem;line-height:1.58;color:var(--dmd);max-width:30ch}.meta-label,.pos-kicker,.role-kicker{font-size:10px!important;letter-spacing:.12em!important}.icon-circle,.contact-icon,.detail-icon,.method-icon{border-radius:4px!important;clip-path:none!important}@media(max-width:900px){.page-lenses{padding:0 1.5rem!important}.page-lenses-inner{grid-template-columns:1fr}.lens-card{min-height:auto;padding:1.6rem 1.25rem}}
+
+
+/* FINAL PRODUCTION PATCH — consistency, hierarchy, polish */
+:root{--ui-radius:4px;}
+.hero-hl,.hero-title{font-size:clamp(3.85rem,8.1vw,8.9rem)!important;line-height:.91!important;letter-spacing:-.045em!important;max-width:880px!important;}
+@media(max-width:900px){.hero-hl,.hero-title{font-size:clamp(3.1rem,15vw,5.6rem)!important;max-width:95vw!important;}}
+.n-cta,.n-mobile-cta,.btn-p,.btn-s,.form-tab,.pref-btn,.amt-btn,.freq-btn,.donate-submit,.load-btn,.cookie-accept,.cookie-decline,.gal-btn,button[type="submit"],input[type="submit"],.contact-icon,.detail-icon,.method-icon,.icon-circle,.read-more,.read-link,.other-card,.reason-btn,.submit-btn{clip-path:none!important;border-radius:var(--ui-radius)!important;}
+.n-cta{padding:.62rem 1.65rem!important;min-width:auto!important;font-size:.66rem!important;}
+.n-mobile-cta{padding:.72rem 0!important;}
+.btn-p,.btn-s{min-height:48px;display:inline-flex;align-items:center;justify-content:center;}
+.btn-s{color:rgba(245,245,243,.86)!important;border-color:rgba(245,245,243,.34)!important;background:rgba(245,245,243,.035)!important;}
+.btn-s:hover{color:var(--black)!important;background:var(--white)!important;border-color:var(--white)!important;}
+.contact-icon,.detail-icon,.method-icon,.icon-circle{overflow:hidden!important;}
+.contact-icon:before,.detail-icon:before,.method-icon:before,.icon-circle:before{clip-path:none!important;border-radius:inherit!important;}
+button[type="submit"],input[type="submit"],.donate-submit{clip-path:none!important;border-radius:var(--ui-radius)!important;}
+.meta-label,.pos-role,.pos-kicker,.role-kicker{font-size:8.5px!important;letter-spacing:.14em!important;line-height:1.15!important;}
+.article-nav-right{position:sticky!important;top:calc(66px + 2.5rem)!important;border-left:1px solid var(--blt)!important;padding-left:0!important;}
+.article-nav-title{display:block!important;font-family:var(--H)!important;font-weight:500!important;font-size:.6rem!important;letter-spacing:.24em!important;text-transform:uppercase!important;color:var(--lmd)!important;margin:0 0 1rem 1rem!important;}
+.article-nav-right a{display:block!important;font-family:var(--H)!important;font-weight:300!important;font-size:.7rem!important;line-height:1.4!important;color:var(--lmd)!important;text-decoration:none!important;padding:.5rem 0 .5rem 1rem!important;border-left:2px solid transparent!important;border-bottom:0!important;margin-left:-1px!important;transition:color .15s,border-color .18s!important;}
+.article-nav-right a:hover,.article-nav-right a.active{color:var(--lhi)!important;border-left-color:var(--lhi)!important;}
+
+
+/* FINAL CLIENT POLISH OVERRIDES */
+:root{--ui-radius:4px;}
+/* Narrower, calmer hero typography across page heroes and home panels */
+.hero-hl,.hero-title,.hero-statement{
+  font-size:clamp(3rem,5.45vw,6.35rem)!important;
+  line-height:.96!important;
+  letter-spacing:-.035em!important;
+  max-width:680px!important;
+}
+@media(max-width:900px){.hero-hl,.hero-title,.hero-statement{font-size:clamp(2.65rem,10.5vw,4.6rem)!important;max-width:92vw!important;}}
+/* Consistent button system: subtle square radius, no diagonal cuts */
+.n-cta,.n-mobile-cta,.btn-p,.btn-s,.form-tab,.pref-btn,.amt-btn,.freq-btn,.donate-submit,.load-btn,.cookie-accept,.cookie-decline,.gal-btn,button[type="submit"],input[type="submit"],.read-more,.read-link,.submit-btn,.share-btn,.article-back,.other-card,.reason-btn{
+  clip-path:none!important;border-radius:var(--ui-radius)!important;font-weight:650!important;
+}
+.n-cta{padding:.58rem 1.45rem!important;min-height:39px!important;font-size:.64rem!important;}
+.btn-s:hover,.btn-p:hover,.n-cta:hover,.get-involved .btn-s:hover{font-weight:650!important;}
+/* Direct-contact icon hover fix */
+.d-ico,.contact-icon,.detail-icon,.method-icon,.icon-circle{border-radius:4px!important;clip-path:none!important;overflow:hidden!important;background:transparent;}
+.d-ico:before,.contact-icon:before,.detail-icon:before,.method-icon:before,.icon-circle:before{display:none!important;}
+.direct-item:hover .d-ico,.direct-item:hover .contact-icon,.direct-item:hover .detail-icon,.direct-item:hover .method-icon{background:rgba(15,15,15,.06)!important;color:var(--ink)!important;border-color:rgba(15,15,15,.35)!important;}
+.direct-item:hover svg,.contact-icon:hover svg,.detail-icon:hover svg,.method-icon:hover svg{opacity:1!important;visibility:visible!important;stroke:currentColor!important;}
+/* Small role labels */
+.pos-role,.pos-kicker,.role-kicker,.meta-label{font-size:7.25px!important;letter-spacing:.12em!important;line-height:1.15!important;}
+/* More compact page lens descriptions */
+.page-lenses .lens-body{font-size:.8rem!important;line-height:1.45!important;max-width:26ch!important;}
+/* Premium share: keep the more polished channels only */
+.share-btn[href*="facebook"],.share-btn[href*="whatsapp"],.share-btn[href*="mailto"],#fbBtn{display:none!important;}
+/* Article hero fallback: restore clean article rhythm */
+.article-hero,.post-hero{padding-top:10rem!important;padding-bottom:5.5rem!important;min-height:auto!important;}
+.article-hero .hero-hl,.post-hero .hero-hl,.article-title{font-size:clamp(2.7rem,4.8vw,5.6rem)!important;line-height:1!important;max-width:920px!important;}
+/* Ensure white section backgrounds remain true white */
+.approach-section,.about-approach,.image-copy,.proof-section,.record-proof{background:#fff!important;}
+
+
+/* FINAL MOBILE + SYSTEM POLISH */
+:root{--ui-radius:4px;}
+.hero-hl,.hero-title,.hero-statement,.slide-title{font-size:clamp(3.05rem,5.8vw,6.6rem)!important;line-height:.94!important;letter-spacing:-.043em!important;max-width:720px!important;}
+@media(max-width:900px){.hero-hl,.hero-title,.hero-statement,.slide-title{font-size:clamp(2.45rem,10.4vw,4.35rem)!important;line-height:1.02!important;max-width:78vw!important;letter-spacing:-.035em!important}.hero-body{max-width:82vw!important}.hero{min-height:520px!important;height:auto!important}.hero-scroll{display:flex!important;opacity:1!important;visibility:visible!important;right:1.25rem!important;bottom:2rem!important;z-index:6!important}.scroll-line{display:block!important}}
+@media(max-width:900px){.n-links,.n-cta{display:none!important}.n-hamburger{display:flex!important;position:absolute!important;right:1.5rem!important;top:50%!important;transform:translateY(-50%)!important;z-index:250!important;opacity:1!important;visibility:visible!important}.n-hamburger span{background:#f4f3ef!important;opacity:1!important;height:2px!important}.n-inner{position:relative!important}}
+.quote-strip{padding:4.5rem 2rem!important}.qt-text{font-size:clamp(1.35rem,2.35vw,2.35rem)!important;max-width:720px!important}@media(max-width:700px){.quote-strip{padding:4.2rem 1.5rem!important}.qt-rule{width:40px!important;height:40px!important;margin-bottom:1.5rem!important}.qt-text{font-size:clamp(1.65rem,8vw,2.55rem)!important;line-height:1.12!important;max-width:92vw!important;letter-spacing:-.035em!important}.qt-attr{margin-top:1.3rem!important;font-size:.62rem!important}}
+.btn-p,.btn-s,.n-cta,.n-mobile-cta,.donate-submit,.submit-btn,button[type=submit],input[type=submit],.load-btn,.form-tab,.pref-btn,.amt-btn,.freq-btn,.read-link,.read-more,.gal-btn,.share-btn{border-radius:var(--ui-radius)!important;clip-path:none!important;font-weight:700!important;letter-spacing:.18em!important}.btn-s:hover,.btn-p:hover,.n-cta:hover,.get-involved .btn-s:hover,.footer-panel .btn-s:hover{font-weight:700!important}.contact-icon:hover,.detail-icon:hover,.method-icon:hover,.icon-circle:hover{opacity:1!important;visibility:visible!important;color:inherit!important;background:rgba(15,15,15,.05)!important;border-color:rgba(15,15,15,.28)!important}.contact-icon:hover svg,.detail-icon:hover svg,.method-icon:hover svg,.icon-circle:hover svg{opacity:1!important;visibility:visible!important;stroke:currentColor!important}.meta-label,.role-source,.position-source,.elected-label,[class*="elected"]{font-size:10px!important;letter-spacing:.12em!important}
+@media(max-width:700px){.story-copy p,.body-p,.who-copy p,.about-copy p{margin-bottom:1.05rem!important;line-height:1.68!important}.story-copy p + p,.about-copy p + p{margin-top:0!important}}
+@media(max-width:760px){.footer-panel,.get-involved,.involved,.cta-section{overflow:hidden!important}.footer-panel .fp-inner,.get-involved .fp-inner,.involved .fp-inner,.cta-section .fp-inner{display:flex!important;flex-direction:column!important;gap:1.5rem!important;align-items:flex-start!important;padding-left:1.5rem!important;padding-right:1.5rem!important}.fp-copy,.footer-panel p,.get-involved p{max-width:100%!important;width:100%!important}.fp-actions,.get-involved .fp-actions{display:flex!important;flex-direction:column!important;gap:.85rem!important;width:100%!important}.fp-actions a,.fp-actions .btn-p,.fp-actions .btn-s{width:100%!important;max-width:320px!important}}
+.gallery-section,.gallery-wrap,.gallery-stage{background:var(--white)!important}.gallery-bg,.gallery-bg-text{background:transparent!important}.gallery-bg-text{font-size:clamp(8rem,15vw,15rem)!important;letter-spacing:-.08em!important;opacity:.18!important;-webkit-text-stroke:1.35px rgba(15,15,15,.55)!important;color:transparent!important}.gallery-line{width:135px!important;height:2px!important;background:rgba(15,15,15,.44)!important;opacity:1!important}.gallery-main,.gallery-feature{height:clamp(390px,43vw,620px)!important}.gallery-secondary,.gallery-next{height:clamp(330px,36vw,525px)!important;align-self:flex-end!important;margin-bottom:0!important}.gallery-track,.gallery-images{align-items:flex-end!important}.gal-btn{border:1px solid rgba(15,15,15,.24)!important;color:rgba(15,15,15,.62)!important;background:transparent!important}.gal-btn:hover{border-color:rgba(15,15,15,.45)!important;color:rgba(15,15,15,.9)!important;background:rgba(15,15,15,.03)!important}.gallery-count,.gal-count{color:rgba(15,15,15,.4)!important;font-weight:500!important}.gallery-count .current,.gal-count .current{color:rgba(15,15,15,.92)!important;font-weight:700!important}@media(max-width:760px){.gallery-bg-text{font-size:7rem!important}.gallery-line{width:90px!important}.gallery-main,.gallery-feature{height:340px!important}.gallery-secondary,.gallery-next{height:285px!important}}
+
+
+/* FINAL MOBILE RECTIFICATION — 28 Apr */
+:root{--ui-radius:4px;}
+/* Calmer, narrower hero scale site-wide */
+.hero-hl,.hero-title,.hero-statement,.slide-title,.panel-hl{
+  font-size:clamp(2.75rem,5vw,5.7rem)!important;
+  line-height:.98!important;
+  max-width:620px!important;
+  letter-spacing:-.035em!important;
+}
+@media(max-width:900px){
+  nav{height:66px!important;padding:0 1.5rem!important;display:flex!important;align-items:center!important;justify-content:space-between!important;background:rgba(10,10,10,.98)!important;}
+  .n-logo{position:relative!important;z-index:260!important;}
+  .n-links,.n-cta{display:none!important;}
+  .n-hamburger{display:flex!important;position:absolute!important;right:1.5rem!important;top:50%!important;transform:translateY(-50%)!important;z-index:999!important;opacity:1!important;visibility:visible!important;width:36px!important;height:36px!important;pointer-events:auto!important;}
+  .n-hamburger span{display:block!important;background:#f4f3ef!important;height:2px!important;width:28px!important;opacity:1!important;}
+  .n-mobile-menu{display:block!important;}
+  .hero-hl,.hero-title,.hero-statement,.slide-title,.panel-hl{
+    font-size:clamp(2.25rem,8.7vw,3.7rem)!important;
+    line-height:1.04!important;
+    max-width:72vw!important;
+    letter-spacing:-.032em!important;
+  }
+  .hero,.page-hero{min-height:100svh!important;height:100svh!important;}
+  .panel{min-height:100svh!important;height:100svh!important;}
+  .hero-body,.panel-body{padding-left:1.5rem!important;padding-right:1.5rem!important;}
+  .hero-scroll,.panel-scroll{display:flex!important;opacity:1!important;visibility:visible!important;right:1.5rem!important;bottom:4.9rem!important;z-index:15!important;}
+  .scroll-line{display:block!important;}
+}
+/* Quote sizing restored */
+.qt-text{font-size:clamp(1.55rem,2.55vw,2.65rem)!important;line-height:1.14!important;max-width:820px!important;}
+.quote-strip .qt-text{font-size:clamp(1.55rem,2.55vw,2.55rem)!important;}
+@media(max-width:700px){
+  .qt,.quote-strip{padding:4.5rem 1.5rem!important;}
+  .qt-text,.quote-strip .qt-text{font-size:clamp(1.55rem,6.3vw,2rem)!important;line-height:1.16!important;max-width:92vw!important;}
+  .qt-rule{display:none!important;}
+}
+/* Mobile reading rhythm for two-column text once stacked */
+@media(max-width:900px){
+  .two-col{gap:1.35rem!important;}
+  .two-col > div + div{margin-top:1.35rem!important;}
+  .two-col p{font-size:1rem!important;line-height:1.78!important;margin-bottom:1.15rem!important;}
+}
+/* Mobile get involved layout, including Record page */
+@media(max-width:760px){
+  .cta,.get-involved,.footer-panel,.involved,.cta-section{overflow:hidden!important;padding-left:1.5rem!important;padding-right:1.5rem!important;}
+  .cta-inner,.get-involved .cta-inner,.get-involved .fp-inner,.footer-panel .fp-inner,.involved .fp-inner,.cta-section .fp-inner{
+    display:grid!important;grid-template-columns:1fr!important;gap:2rem!important;width:100%!important;max-width:100%!important;padding-left:0!important;padding-right:0!important;
+  }
+  .cta-p,.fp-copy,.footer-panel p,.get-involved p{max-width:100%!important;width:100%!important;}
+  .btns,.fp-actions,.get-involved .fp-actions{display:flex!important;flex-direction:column!important;gap:.85rem!important;width:100%!important;align-items:flex-start!important;}
+  .btns a,.fp-actions a,.btns .btn-p,.btns .btn-s,.fp-actions .btn-p,.fp-actions .btn-s{width:100%!important;max-width:320px!important;text-align:center!important;justify-content:center!important;}
+}
+/* Direct icon hover should never disappear */
+.d-ico,.contact-icon,.detail-icon,.method-icon,.icon-circle{border-radius:4px!important;clip-path:none!important;overflow:hidden!important;}
+.d-ico:before,.contact-icon:before,.detail-icon:before,.method-icon:before,.icon-circle:before{display:none!important;}
+.d-ico:hover,.contact-icon:hover,.detail-icon:hover,.method-icon:hover,.icon-circle:hover,
+.direct-item:hover .d-ico,.direct-item:hover .contact-icon,.direct-item:hover .detail-icon,.direct-item:hover .method-icon{
+  opacity:1!important;visibility:visible!important;color:inherit!important;background:rgba(15,15,15,.05)!important;border-color:rgba(15,15,15,.28)!important;
+}
+.d-ico:hover svg,.contact-icon:hover svg,.detail-icon:hover svg,.method-icon:hover svg,.icon-circle:hover svg,
+.direct-item:hover svg{opacity:1!important;visibility:visible!important;stroke:currentColor!important;}
+/* Small elected labels */
+.pos-role,.pos-kicker,.role-kicker,.meta-label,.role-source,.position-source,.elected-label,[class*="elected"]{font-size:7.5px!important;letter-spacing:.12em!important;line-height:1.15!important;}
+/* Contact wording kept concise */
+.enquiry-copy,.type-description,.select-description{line-height:1.35!important;}
+
+
+/* 10/10 STRATEGIC POLISH PASS */
+:root{--ui-radius:4px;--max-page:1280px;--max-reading:760px;}
+html,body{overflow-x:hidden;}
+.n-cta{padding:.58rem 1.35rem!important;font-size:.64rem!important;letter-spacing:.18em!important;border-radius:var(--ui-radius)!important;clip-path:none!important;min-height:38px!important;}
+.n-mobile-cta,.btn-p,.btn-s,.submit-btn,.donate-submit,.load-btn,.form-tab,.pref-btn,.amt-btn,.freq-btn,.read-more,.read-link,.share-btn,.article-back,button[type=submit],input[type=submit]{border-radius:var(--ui-radius)!important;clip-path:none!important;font-weight:700!important;letter-spacing:.17em!important;}
+.btn-p,.btn-s,.submit-btn,.donate-submit,.load-btn{min-height:46px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;}
+.hero,.page-hero{min-height:100svh!important;height:100svh!important;}
+.hero-body,.panel-body{max-width:var(--max-page)!important;margin:0 auto!important;width:100%!important;padding-left:clamp(1.5rem,5vw,4.5rem)!important;padding-right:clamp(1.5rem,5vw,4.5rem)!important;}
+.hero-hl,.hero-title,.hero-statement,.slide-title,.panel-hl{font-size:clamp(2.85rem,5.15vw,5.85rem)!important;line-height:.98!important;letter-spacing:-.04em!important;max-width:680px!important;}
+.hero-eyebrow,.panel-cat,.s-tag,.s-tag-dk,.ro-kicker,.sidebar-label,.intro-label{font-size:.62rem!important;letter-spacing:.24em!important;}
+.hero-scroll,.panel-scroll{bottom:clamp(2.2rem,5vh,4rem)!important;right:clamp(1.5rem,5vw,4.5rem)!important;}
+.scroll-line{height:54px!important;}
+@media(max-width:900px){.hero-hl,.hero-title,.hero-statement,.slide-title,.panel-hl{font-size:clamp(2.1rem,9vw,3.45rem)!important;line-height:1.04!important;max-width:80vw!important;letter-spacing:-.032em!important;}.hero-body,.panel-body{padding-left:1.45rem!important;padding-right:1.45rem!important;}.hero-scroll,.panel-scroll{bottom:2.2rem!important;right:1.45rem!important;}.scroll-line{height:42px!important;}.n-links,.n-cta{display:none!important}.n-hamburger{display:flex!important;position:absolute!important;right:1.35rem!important;top:50%!important;transform:translateY(-50%)!important;z-index:9999!important;opacity:1!important;visibility:visible!important;width:38px!important;height:38px!important;pointer-events:auto!important;background:transparent!important;border:0!important}.n-hamburger span{display:block!important;background:#f4f3ef!important;height:2px!important;width:28px!important;opacity:1!important}.n-mobile-menu{display:block!important;z-index:9998!important}.quote-strip .qt-text,.qt-text{font-size:clamp(1.25rem,6vw,2rem)!important;line-height:1.22!important;max-width:88vw!important}}
+.authority-strip,.impact-strip{background:var(--black);border-top:1px solid var(--bdk);border-bottom:1px solid var(--bdk);padding:0 clamp(1.5rem,4vw,3rem);}
+.authority-inner,.impact-inner{max-width:var(--max-page);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdk);}
+.authority-card,.impact-card{background:var(--black);padding:2rem 2rem 1.85rem;min-height:156px;text-decoration:none;color:inherit;position:relative;overflow:hidden;}
+.authority-card:after,.impact-card:after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--dhi);transition:width .28s ease;}
+.authority-card:hover:after,.impact-card:hover:after{width:100%;}
+.authority-num,.impact-num{font-family:var(--M);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dlo);display:block;margin-bottom:1.35rem;}
+.authority-title,.impact-title{font-weight:650;font-size:1rem;line-height:1.2;letter-spacing:-.01em;color:var(--dhi);display:block;margin-bottom:.5rem;}
+.authority-copy,.impact-copy{font-size:.84rem;line-height:1.55;color:var(--dmd);max-width:30ch;}
+@media(max-width:900px){.authority-inner,.impact-inner{grid-template-columns:1fr}.authority-card,.impact-card{padding:1.55rem 1.25rem;min-height:auto}}
+.record-proof{background:#f5f5f3!important;color:#0f0f0f!important;padding:clamp(5rem,9vw,8rem) clamp(1.5rem,5vw,4rem)!important;}
+.ro-wrap{max-width:var(--max-page)!important;margin:0 auto!important;display:grid!important;grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr)!important;gap:clamp(2rem,6vw,6rem)!important;align-items:start!important;}
+.ro-kicker{font-family:var(--M)!important;font-size:.62rem!important;letter-spacing:.22em!important;text-transform:uppercase!important;color:rgba(15,15,15,.44)!important;margin-bottom:1.2rem!important;}
+.ro-h{font-size:clamp(2.25rem,4.2vw,4.7rem)!important;line-height:.98!important;letter-spacing:-.04em!important;color:#0f0f0f!important;max-width:7.5ch!important;}
+.ro-copy{font-size:clamp(1.15rem,1.7vw,1.6rem)!important;line-height:1.35!important;letter-spacing:-.02em!important;color:rgba(15,15,15,.78)!important;max-width:680px!important;margin-bottom:2rem!important;}
+.record-proof-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:1px!important;background:rgba(15,15,15,.12)!important;border:1px solid rgba(15,15,15,.12)!important;}
+.record-proof-card{background:#f5f5f3!important;padding:1.35rem!important;min-height:160px!important;}
+.record-proof-card span{font-family:var(--M)!important;font-size:.56rem!important;color:rgba(15,15,15,.42)!important;display:block!important;margin-bottom:1.1rem!important;}
+.record-proof-card strong{display:block!important;font-size:.92rem!important;letter-spacing:-.01em!important;color:#0f0f0f!important;margin-bottom:.5rem!important;}
+.record-proof-card p{font-size:.82rem!important;line-height:1.5!important;color:rgba(15,15,15,.58)!important;}
+@media(max-width:900px){.ro-wrap{grid-template-columns:1fr!important}.record-proof-grid{grid-template-columns:1fr!important}.ro-h{max-width:100%!important}}
+.d-ico,.contact-icon,.detail-icon,.method-icon,.icon-circle{border-radius:var(--ui-radius)!important;clip-path:none!important;overflow:hidden!important;}
+.d-ico:before,.contact-icon:before,.detail-icon:before,.method-icon:before,.icon-circle:before{display:none!important}
+.d-ico:hover,.contact-icon:hover,.detail-icon:hover,.method-icon:hover,.icon-circle:hover,.direct-item:hover .d-ico,.direct-item:hover .contact-icon,.direct-item:hover .detail-icon,.direct-item:hover .method-icon{opacity:1!important;visibility:visible!important;color:inherit!important;background:rgba(15,15,15,.05)!important;border-color:rgba(15,15,15,.28)!important}
+.d-ico:hover svg,.contact-icon:hover svg,.detail-icon:hover svg,.method-icon:hover svg,.icon-circle:hover svg,.direct-item:hover svg{opacity:1!important;visibility:visible!important;stroke:currentColor!important}
+.pos-role,.pos-kicker,.role-kicker,.meta-label,.role-source,.position-source,.elected-label,[class*="elected"]{font-size:7px!important;letter-spacing:.12em!important;line-height:1.12!important;}
+.who-copy .lead-p,.who-copy .body-p,.two-col p{font-size:clamp(1rem,1.25vw,1.18rem)!important;line-height:1.68!important;letter-spacing:-.01em!important;}
+@media(max-width:900px){.two-col{gap:1.35rem!important}.two-col p + p{margin-top:1.15rem!important}.story1{padding-top:4.5rem!important;padding-bottom:4.5rem!important}.story1-h{font-size:clamp(2.3rem,12vw,3.4rem)!important}}
+.gallery{background:#f5f5f3!important;}.gallery-letterbox{background:transparent!important}
+.gallery-init-j,.gallery-init-c{font-family:var(--H)!important;font-weight:700!important;-webkit-text-stroke:1.8px rgba(15,15,15,.22)!important;color:transparent!important;opacity:1!important}
+.gallery-init-j{transform:translateX(-48%)!important}.gallery-init-c{transform:translateX(-8%)!important}
+.gallery-rule{height:10px!important;width:190px!important;background:rgba(15,15,15,.15)!important;border-radius:1px!important;transform:translateX(-20%)!important}
+.gal-btn{border:1px solid rgba(15,15,15,.30)!important;color:rgba(15,15,15,.72)!important;background:rgba(15,15,15,.02)!important;border-radius:var(--ui-radius)!important;clip-path:none!important}
+.gal-btn:hover{background:rgba(15,15,15,.055)!important;border-color:rgba(15,15,15,.48)!important;color:rgba(15,15,15,.92)!important}
+.gallery-counter{color:rgba(15,15,15,.42)!important;letter-spacing:.12em!important}.gallery-counter strong{color:rgba(15,15,15,.92)!important;font-weight:700!important}
+#hiddenBatch{display:none!important}.news-card.visible{opacity:1!important;transform:none!important}.cookie-banner{display:none!important;}
+
+
+/* === FINAL PREMIUM POLISH OVERRIDES 2026-05-01 === */
+:root{--max-page:1600px;}
+.hero-body,.panel-body{max-width:none!important;margin:0!important;width:100%!important;padding-left:clamp(2rem,3.35vw,3.4rem)!important;padding-right:clamp(2rem,3.35vw,3.4rem)!important;}
+.hero-hl,.hero-title,.hero-statement,.slide-title,.panel-hl{font-size:clamp(3.15rem,4.65vw,5.55rem)!important;line-height:.98!important;letter-spacing:-.038em!important;max-width:640px!important;}
+.panel-inner{max-width:640px!important;}
+.hero-scroll,.panel-scroll{right:clamp(2rem,3.35vw,3.4rem)!important;bottom:clamp(3rem,6vh,5rem)!important;}
+.qt-icon{color:var(--ink)!important;border-color:rgba(15,15,15,.28)!important;background:transparent!important;}
+.qt,.quote-strip{background:var(--white)!important;color:var(--ink)!important;}
+.qt.dark,.quote-strip.dark,.p-dk .qt,.p-dk .quote-strip{background:var(--black)!important;color:var(--white)!important;}
+.qt.dark .qt-icon,.quote-strip.dark .qt-icon,.p-dk .qt-icon{color:var(--white)!important;border-color:rgba(245,245,243,.38)!important;}
+.n-cta{padding:.62rem 1.35rem!important;min-width:118px!important;height:43px!important;}
+.panel-btn,.btn-p,.btn-s,.n-cta,.load-btn,.donate-submit,.submit-btn,button[type=submit],input[type=submit]{border-radius:4px!important;clip-path:none!important;}
+.pos-role{font-size:.58rem!important;letter-spacing:.18em!important;}
+.d-ico,.contact-icon,.detail-icon,.method-icon{border-radius:4px!important;clip-path:none!important;}
+@media(max-width:900px){
+  .hero,.page-hero,.panel{height:100svh!important;min-height:100svh!important;}
+  .hero-body,.panel-body{padding-left:1.45rem!important;padding-right:1.45rem!important;}
+  .hero-hl,.hero-title,.hero-statement,.slide-title,.panel-hl{font-size:clamp(2.35rem,10.8vw,3.65rem)!important;line-height:1.02!important;max-width:82vw!important;}
+  .hero-scroll,.panel-scroll{right:1.45rem!important;bottom:3.6rem!important;}
+  .quote-strip .qt-text,.qt-text{font-size:clamp(1.32rem,6vw,2.1rem)!important;line-height:1.22!important;max-width:86vw!important;}
+  .cta,.get-involved,.footer-panel,.involved,.cta-section{overflow:hidden!important;}
+  .cta-inner,.get-involved .cta-inner,.get-involved .fp-inner,.footer-panel .fp-inner,.involved .fp-inner,.cta-section .fp-inner{display:flex!important;flex-direction:column!important;gap:1.5rem!important;align-items:flex-start!important;width:100%!important;}
+  .cta-p,.fp-copy,.footer-panel p,.get-involved p{max-width:100%!important;width:100%!important;}
+}
+
+
+
+/* FINAL SYSTEM PASS — premium consistency */
+.hero-hl,.hero-title,.hero-statement,.slide-title,.panel-hl{
+  font-size:clamp(3.85rem,6.8vw,8.4rem)!important;
+  line-height:.90!important;
+  letter-spacing:-.035em!important;
+  max-width:900px!important;
+}
+.panel-hl{font-size:clamp(3.8rem,6.4vw,7.7rem)!important;letter-spacing:-.025em!important;max-width:820px!important;}
+@media(max-width:900px){
+  .hero-hl,.hero-title,.hero-statement,.slide-title,.panel-hl{
+    font-size:clamp(2.75rem,13.2vw,4.8rem)!important;
+    line-height:.98!important;max-width:88vw!important;letter-spacing:-.025em!important;
+  }
+}
+.qt-icon,.quote-icon,.speech-icon,.qt-rule{color:#0f0f0f!important;border-color:#0f0f0f!important;background:transparent!important;opacity:1!important;}
+.qt-icon svg,.quote-icon svg,.speech-icon svg{stroke:#0f0f0f!important;color:#0f0f0f!important;opacity:1!important;}
+.dark .qt-icon,.dark .quote-icon,.dark .speech-icon,.dark .qt-rule,.qt.dark .qt-icon,.quote-strip.dark .qt-icon,.p-dk .qt-icon,.p-dk .quote-icon,.p-dk .speech-icon,.p-dk .qt-rule{color:#f5f5f3!important;border-color:#f5f5f3!important;background:transparent!important;}
+.dark .qt-icon svg,.dark .quote-icon svg,.dark .speech-icon svg,.p-dk .qt-icon svg{stroke:#f5f5f3!important;color:#f5f5f3!important;opacity:1!important;}
+.p-dk + .p-dk,.story1 + .qt,.record-proof + .record-timeline,.record-timeline + .record{border-top:0!important;}
+section.p-dk{background:#0a0a0a!important;}
+.ft-social{display:flex;align-items:center;gap:.55rem;justify-content:center;}
+.ft-social a{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(245,245,243,.16);color:rgba(245,245,243,.72);text-decoration:none;font-family:var(--M);font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;transition:color .2s,border-color .2s,background .2s,transform .2s;}
+.ft-social a:hover{color:#f5f5f3;border-color:rgba(245,245,243,.45);background:rgba(245,245,243,.05);transform:translateY(-1px);}
+footer{gap:1.5rem!important;}
+@media(max-width:800px){footer{grid-template-columns:1fr!important;text-align:center!important}.ft-social{order:3}.ft-copy{order:4}}
+.direct-item .d-ico{clip-path:none!important;border-radius:4px!important;}
+.direct-item.postal-item{display:flex!important;align-items:center!important;text-decoration:none!important;}
+.direct-item.postal-item .d-val{display:block!important;}
+.share-list{gap:.65rem!important;border:0!important;}
+.share-btn{border:1px solid rgba(15,15,15,.14)!important;border-radius:4px!important;padding:.82rem 1rem!important;display:inline-flex!important;align-items:center!important;justify-content:space-between!important;gap:1rem!important;min-width:120px!important;background:transparent!important;}
+.share-btn::after{content:'→'!important;font-family:var(--H)!important;font-size:.95rem!important;line-height:1!important;position:static!important;transform:none!important;}
+.share-btn.copy-btn::after{content:'→'!important;}
+@media(max-width:900px){.share-list{display:flex!important;flex-wrap:wrap!important}.share-btn{border:1px solid rgba(15,15,15,.14)!important;border-right:1px solid rgba(15,15,15,.14)!important;border-bottom:1px solid rgba(15,15,15,.14)!important;}.article-sidebar,.article-side,.toc-card,.article-toc{display:block!important;position:static!important;width:auto!important;margin:0 1.5rem 2rem!important}.article-layout{display:block!important}.contents-list a,.toc-card a{display:flex!important}}
+@media(max-width:700px){.cta .btns a,.btn-p,.btn-s{min-width:0!important;padding:.95rem 1.05rem!important;font-size:.64rem!important}.cta-inner{gap:2.5rem!important}.cta-p{max-width:24rem!important}}
+@media(max-width:900px){.priority-acc .acc-body,.platform-acc .acc-body,.cards-section .acc-body,.acc-item.open .acc-body{max-height:none!important;height:auto!important;overflow:visible!important}.acc-content,.acc-paras{overflow:visible!important}}
+
+
+/* FINAL V8 — locked system fixes */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;}
+.hero,.page-hero,.panel,.quote-strip,.cta,.get-involved,footer{scroll-snap-align:start;scroll-snap-stop:always;}
+.panel,.p-dk,.cta,.quote-strip.dark,body.home footer{background:#0a0a0a!important;}
+.panel,.p-dk,.panel + .panel,.p-dk + .p-dk,.quote-strip.dark + .cta,.cta + footer{border-top:0!important;border-bottom:0!important;}
+.qt-icon,.quote-icon,.speech-icon,.qt-rule{color:#0f0f0f!important;border-color:#0f0f0f!important;background:transparent!important;opacity:1!important;}
+.qt-icon svg,.quote-icon svg,.speech-icon svg{stroke:#0f0f0f!important;color:#0f0f0f!important;opacity:1!important;}
+.dark .qt-icon,.dark .quote-icon,.dark .speech-icon,.dark .qt-rule,.quote-strip.dark .qt-icon,.quote-strip.dark .qt-rule,.p-dk .qt-icon,.p-dk .quote-icon,.p-dk .speech-icon,.p-dk .qt-rule{color:#f5f5f3!important;border-color:#f5f5f3!important;background:transparent!important;opacity:1!important;}
+.dark .qt-icon svg,.dark .quote-icon svg,.dark .speech-icon svg,.quote-strip.dark .qt-icon svg,.p-dk .qt-icon svg{stroke:#f5f5f3!important;color:#f5f5f3!important;opacity:1!important;}
+.hero-hl,.hero-title,.hero-statement,.slide-title,.panel-hl{font-size:clamp(4.25rem,7.25vw,9.2rem)!important;line-height:.9!important;letter-spacing:-.032em!important;max-width:960px!important;}
+.panel-hl{font-size:clamp(4.05rem,6.7vw,8.2rem)!important;max-width:900px!important;}
+@media(max-width:900px){.hero-hl,.hero-title,.hero-statement,.slide-title,.panel-hl{font-size:clamp(2.85rem,13.5vw,4.95rem)!important;line-height:.98!important;max-width:88vw!important}.hero-scroll,.panel-scroll{bottom:4.15rem!important}}
+.ft-social{display:flex!important;align-items:center!important;justify-content:center!important;gap:.55rem!important;}
+.ft-social a{width:34px!important;height:34px!important;border:1px solid rgba(245,245,243,.18)!important;border-radius:4px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;color:rgba(245,245,243,.74)!important;background:transparent!important;text-decoration:none!important;transition:color .2s,border-color .2s,background .2s,transform .2s!important;}
+.ft-social a:hover{color:#f5f5f3!important;border-color:rgba(245,245,243,.46)!important;background:rgba(245,245,243,.055)!important;transform:translateY(-1px)!important;}
+.ft-social svg{width:14px!important;height:14px!important;display:block!important;fill:none!important;stroke:currentColor!important;stroke-width:1.75!important;stroke-linecap:square!important;stroke-linejoin:miter!important;}
+.ft-social .solid svg{fill:currentColor!important;stroke:none!important;}
+.record-intro{background:#0a0a0a!important;color:#f5f5f3!important;padding:4.75rem 2.75rem 3.25rem!important;border-top:0!important;border-bottom:0!important;}
+.record-intro-inner{max-width:1280px;margin:0 auto;}
+.record-intro p{font-family:var(--H);font-weight:300;font-size:clamp(1.05rem,1.55vw,1.34rem);line-height:1.72;color:rgba(245,245,243,.72);max-width:55rem;margin:0;}
+.record-timeline{background:#0a0a0a!important;border-top:1px solid rgba(245,245,243,0.09)!important;border-bottom:0!important;padding:4rem 2.75rem!important;}
+.record-timeline-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:0!important;max-width:none!important;margin:0!important;}
+.record-time-item{padding:0 2rem!important;}
+.record-time-item:first-child{padding-left:0!important;}
+.record-time-item:not(:first-child){border-left:1px solid rgba(245,245,243,0.09)!important;}
+.record-year{font-family:var(--M)!important;font-size:.62rem!important;letter-spacing:.14em!important;color:rgba(245,245,243,0.42)!important;display:block!important;margin-bottom:1rem!important;}
+.record-time-item p{font-family:var(--H)!important;font-weight:300!important;font-size:.88rem!important;line-height:1.72!important;color:rgba(245,245,243,0.72)!important;margin:0!important;}
+.record-timeline + .record{border-top:0!important;margin-top:0!important;}
+@media(max-width:900px){.record-intro{padding:3.5rem 1.5rem 2.5rem!important}.record-timeline{padding:3rem 1.5rem!important}.record-timeline-grid{grid-template-columns:1fr!important}.record-time-item{padding:1.5rem 0!important}.record-time-item:first-child{padding-top:0!important}.record-time-item:not(:first-child){border-left:0!important;border-top:1px solid rgba(245,245,243,0.09)!important}.record-time-item:last-child{padding-bottom:0!important}}
+.direct-item.postal-item{display:flex!important;align-items:center!important;text-decoration:none!important;cursor:default!important;}
+.direct-item.postal-item .d-ico{border-radius:4px!important;clip-path:none!important;}
+.direct-item.postal-item .d-val{display:block!important;}
+body.home .quote-strip,.home .quote-strip{background:#0a0a0a!important;color:#f5f5f3!important;border-top:0!important;border-bottom:0!important;}
+body.home .quote-strip .qt-text,.home .quote-strip .qt-text{color:#f5f5f3!important;}
+body.home .quote-strip .qt-attr,.home .quote-strip .qt-attr{color:rgba(245,245,243,.55)!important;}
+body.home .quote-strip .qt-rule,.home .quote-strip .qt-rule{color:#f5f5f3!important;border-color:#f5f5f3!important;}
+.express-row{gap:.9rem!important;}
+@media(max-width:640px){.express-row{display:grid!important;grid-template-columns:1fr 1fr!important;gap:.75rem!important}.express-btn{min-width:0!important}}
+.platform-hero-strip,.platform-teasers,.platform-summary,.under-hero,.hero-options{display:none!important;}
+
+
+/* === USER FINAL CORRECTIONS: locked system pass === */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;}
+.panel,.hero,.page-hero,.quote-strip,.cta,.get-involved,.footer-panel{scroll-snap-align:start;scroll-snap-stop:always;}
+body,.panel,.panel.p-dk,.panel.p-lt,section.p-dk,.home-panel{background:#0a0a0a!important;}
+.panel-ph,.hero-ph,.ph-about,.ph-record,.ph-priorities,.ph-news,.ph-contact{background:#0a0a0a!important;opacity:1!important;}
+.panel::before,.panel::after,.panel + .panel,.p-dk + .p-dk,.quote-strip.dark,.quote-strip.dark + .cta,.cta,.get-involved,.footer-panel,.cta + footer{border-top:0!important;border-bottom:0!important;}
+.p-lt .panel-cat,.p-lt .panel-scroll{color:rgba(245,245,243,.42)!important;}
+.p-lt .panel-hl{color:#f5f5f3!important;}
+.panel-veil-dk,.panel-veil-lt,.hero-veil{background:linear-gradient(90deg,rgba(10,10,10,.7),rgba(10,10,10,.12) 58%,rgba(10,10,10,.72))!important;}
+.panel-hl{font-size:clamp(3.25rem,5.6vw,6.85rem)!important;line-height:.92!important;letter-spacing:-.032em!important;max-width:760px!important;}
+.panel-inner{max-width:780px!important;}
+@media(max-width:900px){.panel-hl{font-size:clamp(2.55rem,11vw,4.35rem)!important;line-height:.98!important;max-width:88vw!important;}.panel-inner{max-width:88vw!important;}}
+.qt-rule,.qt-icon,.quote-icon,.speech-icon{opacity:1!important;color:#0f0f0f!important;border-color:#0f0f0f!important;background:transparent!important;}
+.dark .qt-rule,.dark .qt-icon,.dark .quote-icon,.dark .speech-icon,.quote-strip.dark .qt-rule,.quote-strip.dark .qt-icon,.p-dk .qt-rule,.p-dk .qt-icon,.p-dk .quote-icon,.p-dk .speech-icon{color:#f5f5f3!important;border-color:#f5f5f3!important;background:transparent!important;}
+.ft-social{display:none!important;} footer{gap:1rem!important;}
+.share-list,.article-share,.share-block{display:none!important;}
+.record-intro{display:none!important;}
+.record-timeline{background:#0a0a0a!important;border-top:1px solid rgba(245,245,243,0.09)!important;border-bottom:0!important;padding:4rem 2.75rem!important;margin:0!important;}
+.record-timeline-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:0!important;max-width:none!important;margin:0!important;border:0!important;}
+.record-time-item{position:relative!important;padding:0 2rem!important;border-left:1px solid rgba(245,245,243,0.09)!important;min-height:145px!important;}
+.record-time-item:first-child{border-left:0!important;padding-left:0!important;}
+.record-time-item::before{content:''!important;position:absolute!important;top:1.65rem!important;left:0!important;width:100%!important;height:1px!important;background:rgba(245,245,243,0.09)!important;}
+.record-year{font-family:var(--M)!important;font-size:.62rem!important;letter-spacing:.14em!important;color:rgba(245,245,243,.42)!important;display:block!important;margin-bottom:1rem!important;position:relative!important;z-index:1!important;background:#0a0a0a!important;width:max-content!important;padding-right:.75rem!important;}
+.record-time-item p{font-family:var(--H)!important;font-weight:300!important;font-size:.88rem!important;line-height:1.72!important;color:rgba(245,245,243,.72)!important;margin:0!important;max-width:34ch!important;}
+.record-timeline + .record{border-top:0!important;margin-top:0!important;}
+@media(max-width:900px){.record-timeline{padding:3rem 1.5rem!important}.record-timeline-grid{grid-template-columns:1fr!important}.record-time-item{min-height:0!important;padding:1.5rem 0!important;border-left:0!important;border-top:1px solid rgba(245,245,243,0.09)!important}.record-time-item:first-child{border-top:0!important;padding-top:0!important}.record-time-item::before{display:none!important}.record-time-item p{max-width:100%!important}.record-time-item:last-child{padding-bottom:0!important}}
+.direct-item{margin:0!important;}
+.direct-item:last-of-type{margin-bottom:0!important;}
+.direct-item.postal-item{margin-top:0!important;margin-bottom:2.5rem!important;border-bottom:1px solid var(--blt)!important;display:grid!important;grid-template-columns:2.75rem 1fr auto!important;gap:1rem!important;align-items:center!important;}
+.expect-block{margin-top:0!important;}
+.pay-row,.wallet-row,.quick-pay,.payment-wallets{gap:.75rem!important;}
+@media(max-width:760px){.cta .btns,.get-involved .btns,.fp-actions{gap:.75rem!important}.cta .btns a,.get-involved .btns a,.fp-actions a{width:auto!important;max-width:260px!important;min-width:160px!important;padding:.9rem 1.05rem!important;font-size:.62rem!important}.cta-h{font-size:clamp(3.2rem,14vw,4.6rem)!important;}}
+
+
+
+/* === V10 LOCKED CORRECTIONS === */
+html, body{scroll-behavior:smooth;}
+body.home{scroll-snap-type:y mandatory;}
+body.home .panel, body.home .cta, body.home footer{scroll-snap-align:start;scroll-snap-stop:always;}
+body.home .panel, body.home .panel-ph, body.home .ph-about, body.home .ph-record, body.home .ph-priorities, body.home .ph-news, body.home .ph-contact{background:#0a0a0a!important;}
+body.home .panel + .panel, body.home .panel, body.home .cta, body.home footer, body.home .get-involved{border-top:0!important;border-bottom:0!important;}
+body.home .quote-strip{display:none!important;}
+.cta::before,.footer-panel::before,.qt::before,.qt::after,.story1 + .qt::before,.p-dk + .p-dk::before{display:none!important;background:transparent!important;border:0!important;}
+.cta,.get-involved,.footer-panel,.involved,.cta-section{border-top:0!important;border-bottom:0!important;}
+body.home nav{background:transparent!important;border-bottom-color:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+body.home nav.solid{background:rgba(10,10,10,.84)!important;backdrop-filter:blur(18px)!important;-webkit-backdrop-filter:blur(18px)!important;border-bottom-color:transparent!important;}
+.panel-hl{font-size:clamp(3.55rem,5.8vw,7.1rem)!important;line-height:.93!important;letter-spacing:-.038em!important;max-width:760px!important;}
+.panel-inner{max-width:780px!important;}
+@media(max-width:900px){.panel-hl{font-size:clamp(2.55rem,11vw,4.35rem)!important;line-height:.98!important;max-width:88vw!important}.panel-inner{max-width:88vw!important}}
+/* quote marks: never grey */
+.qt-icon,.qt-rule,.quote-icon,.speech-icon,.qt-rule{color:#0f0f0f!important;border-color:#0f0f0f!important;opacity:1!important;background:transparent!important;}
+.qt{display:block!important;background:#0a0a0a!important;color:#f5f5f3!important;padding:5.75rem 2.75rem!important;}
+.qt .qt-icon,.qt .qt-rule,.qt .quote-icon,.qt .speech-icon{color:#f5f5f3!important;border-color:#f5f5f3!important;background:transparent!important;opacity:1!important;}
+.qt .qt-text{color:#f5f5f3!important;font-size:clamp(1.5rem,2.45vw,2.45rem)!important;line-height:1.18!important;max-width:840px!important;margin-left:auto!important;margin-right:auto!important;}
+.qt .qt-attr{color:rgba(245,245,243,.62)!important;}
+@media(max-width:700px){.qt{padding:4.5rem 1.5rem!important}.qt .qt-text{font-size:clamp(1.38rem,6vw,2rem)!important;max-width:92vw!important}.qt .qt-icon{display:inline-flex!important}}
+/* two-column narrative should align by rows on desktop */
+.two-col-balanced{display:grid!important;grid-template-columns:1fr 1fr!important;column-gap:6rem!important;row-gap:2rem!important;align-items:start!important;}
+.two-col-balanced>div{display:grid!important;grid-template-rows:auto auto!important;row-gap:1.7rem!important;}
+.two-col-balanced p{margin:0!important;}
+@media(max-width:900px){.two-col-balanced{grid-template-columns:1fr!important;gap:1.35rem!important}.two-col-balanced>div{display:block!important}.two-col-balanced p{margin-bottom:1.15rem!important}}
+/* article share: remove entirely, including label */
+.article-sidebar-left{display:none!important;}
+.article-body-inner{grid-template-columns:minmax(0,1fr) minmax(0,760px) minmax(0,260px)!important;}
+/* contact direct list: integrated, even spacing */
+.direct-item{margin:0!important;border-bottom:1px solid var(--blt)!important;min-height:88px!important;}
+.direct-item.postal-item{margin:0 0 2.35rem 0!important;border-bottom:1px solid var(--blt)!important;display:grid!important;grid-template-columns:2.75rem 1fr auto!important;gap:1rem!important;align-items:center!important;}
+.info-col .direct-item + .direct-item{margin-top:0!important;}
+.expect-block{margin-top:0!important;}
+.d-ico{border-radius:4px!important;clip-path:none!important;}
+/* donate express pay: balanced gap and clean two-button presentation */
+.express-row,.pay-row,.wallet-row,.payment-wallets{display:grid!important;grid-template-columns:1fr 1fr!important;gap:1rem!important;background:transparent!important;}
+.express-btn{min-width:0!important;gap:.45rem!important;justify-content:center!important;}
+.express-btn::before,.express-btn::after{display:none!important;}
+@media(max-width:700px){.express-row,.pay-row,.wallet-row,.payment-wallets{grid-template-columns:1fr 1fr!important;gap:.8rem!important}.express-btn{padding:.95rem .7rem!important}}
+/* record timeline v10 */
+.record-intro{display:none!important;}
+.record-timeline{background:#0a0a0a!important;border-top:1px solid rgba(245,245,243,.09)!important;border-bottom:0!important;padding:0 2.75rem!important;margin:0!important;}
+.record-timeline-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:0!important;max-width:1280px!important;margin:0 auto!important;position:relative!important;}
+.record-timeline-grid::before{content:''!important;position:absolute!important;left:0!important;right:0!important;top:4.15rem!important;height:1px!important;background:rgba(245,245,243,.09)!important;}
+.record-time-item{position:relative!important;padding:3.65rem 2.2rem 4rem!important;border-left:1px solid rgba(245,245,243,.09)!important;min-height:182px!important;}
+.record-time-item:first-child{border-left:0!important;padding-left:0!important;}
+.record-time-item::before{content:''!important;position:absolute!important;top:3.98rem!important;left:2.2rem!important;width:7px!important;height:7px!important;border:1px solid rgba(245,245,243,.42)!important;background:#0a0a0a!important;border-radius:50%!important;z-index:2!important;}
+.record-time-item:first-child::before{left:0!important;}
+.record-year{font-family:var(--M)!important;font-size:.62rem!important;letter-spacing:.14em!important;color:rgba(245,245,243,.42)!important;display:block!important;margin-bottom:1.75rem!important;position:relative!important;z-index:3!important;background:#0a0a0a!important;width:max-content!important;padding-right:.75rem!important;text-transform:uppercase!important;}
+.record-time-item p{font-family:var(--H)!important;font-weight:300!important;font-size:.88rem!important;line-height:1.72!important;color:rgba(245,245,243,.72)!important;margin:0!important;max-width:34ch!important;}
+.record-timeline + .record{border-top:0!important;margin-top:0!important;}
+@media(max-width:900px){.record-timeline{padding:0 1.5rem!important}.record-timeline-grid{grid-template-columns:1fr!important}.record-timeline-grid::before{left:0!important;top:0!important;bottom:0!important;width:1px!important;height:auto!important;right:auto!important}.record-time-item{border-left:0!important;border-top:1px solid rgba(245,245,243,.09)!important;min-height:0!important;padding:2.2rem 0 2.2rem 1.65rem!important}.record-time-item:first-child{border-top:0!important;padding-left:1.65rem!important}.record-time-item::before,.record-time-item:first-child::before{top:2.45rem!important;left:-3px!important}.record-time-item p{max-width:100%!important}.record-time-item:last-child{padding-bottom:3rem!important}}
+/* Remove light section break lines globally */
+section,div,footer{--kill-line:transparent;}
+.story1,.story2,.who,.record,.platform,.news-list,.contact-main,.donate-main{border-top-color:transparent!important;border-bottom-color:transparent!important;}
+
+/* FINAL v11 GLOBAL: footer divider only, no grey breaks between same-colour sections */
+section + section, .p-dk + .p-dk, .panel + .panel, .cta, .get-involved, .footer-panel{border-top:0!important;}
+footer{border-top:1px solid rgba(245,245,243,.09)!important;}
+
+</style>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="assets/css/final-system.css">
+</head>
+<body>
+<div class="progress-line" id="progressLine"></div>
+
+<!-- NAV -->
+<nav id="siteNav">
+  <a href="./" class="n-logo">Jack Cruickshanks</a>
+  <ul class="n-links">
+    <li><a href="about/">About</a></li>
+    <li><a href="record/">Record</a></li>
+    <li><a href="platform/" class="active">Platform</a></li>
+    <li><a href="news/">News</a></li>
+    <li><a href="contact/">Contact</a></li>
+  </ul>
+  <a href="donate/" class="n-cta">Donate</a>
+  <button class="n-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="n-mobile-menu" id="mobileMenu">
+    <div class="n-mobile-inner">
+      <a href="about/" class="n-mobile-link">About</a>
+      <a href="record/" class="n-mobile-link">Record</a>
+      <a href="platform/" class="n-mobile-link active">Platform</a>
+      <a href="news/" class="n-mobile-link">News</a>
+      <a href="contact/" class="n-mobile-link">Contact</a>
+      <a href="donate/" class="n-mobile-cta">Donate</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- <img class="hero-img" src="hero-priorities.jpg" alt="Jack Cruickshanks"> -->
+  <div class="hero-ph"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-veil"></div>
+  <div class="hero-body">
+    <div>
+      <span class="hero-eyebrow">Platform</span>
+      <h1 class="hero-hl">What<br>matters.</h1>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+
+
+
+
+
+<!-- CARD GRID -->
+<section class="cards-section">
+  <div class="cards-inner">
+    <div class="cards-header fade-up">
+      <h2 class="cards-h">Nine<br>priorities.</h2>
+    </div>
+    <div class="cards-grid">
+
+      <div class="pri-card" onclick="openAcc(0)" id="card-0">
+        <span class="card-n">01</span>
+        <p class="card-title">Grow the local economy</p>
+        <span class="card-cta">Read position</span>
+      </div>
+
+      <div class="pri-card" onclick="openAcc(1)" id="card-1">
+        <span class="card-n">02</span>
+        <p class="card-title">Better jobs, higher pay</p>
+        <span class="card-cta">Read position</span>
+      </div>
+
+      <div class="pri-card" onclick="openAcc(2)" id="card-2">
+        <span class="card-n">03</span>
+        <p class="card-title">Lower costs, better value</p>
+        <span class="card-cta">Read position</span>
+      </div>
+
+      <div class="pri-card" onclick="openAcc(3)" id="card-3">
+        <span class="card-n">04</span>
+        <p class="card-title">Thriving high streets</p>
+        <span class="card-cta">Read position</span>
+      </div>
+
+      <div class="pri-card" onclick="openAcc(4)" id="card-4">
+        <span class="card-n">05</span>
+        <p class="card-title">More homes, better places</p>
+        <span class="card-cta">Read position</span>
+      </div>
+
+      <div class="pri-card" onclick="openAcc(5)" id="card-5">
+        <span class="card-n">06</span>
+        <p class="card-title">Boost tourism</p>
+        <span class="card-cta">Read position</span>
+      </div>
+
+      <div class="pri-card" onclick="openAcc(6)" id="card-6">
+        <span class="card-n">07</span>
+        <p class="card-title">Fix our infrastructure</p>
+        <span class="card-cta">Read position</span>
+      </div>
+
+      <div class="pri-card" onclick="openAcc(7)" id="card-7">
+        <span class="card-n">08</span>
+        <p class="card-title">Fix public services</p>
+        <span class="card-cta">Read position</span>
+      </div>
+
+      <div class="pri-card" onclick="openAcc(8)" id="card-8">
+        <span class="card-n">09</span>
+        <p class="card-title">Raise school standards</p>
+        <span class="card-cta">Read position</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACCORDION DETAIL -->
+<section class="detail-section" id="detailSection">
+  <div class="detail-inner">
+    <h2 class="detail-h">In detail.</h2>
+
+    <!-- 01 -->
+    <div class="acc-item" id="acc-0">
+      <button class="acc-trigger" onclick="toggle('acc-0')">
+        <span class="acc-n">01</span>
+        <span class="acc-title">Grow the local economy</span>
+        <div class="acc-icon"></div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-meta"><span class="acc-meta-item">Abstract: 1 min</span><span class="acc-meta-item">Full read: 4 min</span></div>
+          <p class="acc-abstract">A stronger local economy means more money in people's pockets and thriving town centres. Growth does not happen by accident. It requires targeted investment, active support for business and a council willing to make difficult decisions in favour of long-term prosperity over short-term caution.</p>
+          <div class="acc-sub-h">Key commitments</div>
+          <div class="acc-points">
+            <div class="acc-point">
+              <p class="acc-point-title">Target investment</p>
+              <p class="acc-point-body">Council-led investment must be focused, disciplined and tied to visible improvements rather than process milestones.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Support local business</p>
+              <p class="acc-point-body">Angus Council should be an active partner in helping businesses grow, not an obstacle to navigate.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Attract inward investment</p>
+              <p class="acc-point-body">Arbroath has nationally significant assets. The case for investment needs to be made loudly and at the right level.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Measure outcomes</p>
+              <p class="acc-point-body">Economic initiatives should be judged on whether they produce growth and employment — not on whether programmes were delivered on schedule.</p>
+            </div>
+          </div>
+          <div class="acc-sub-h">Full position</div>
+          <div class="acc-paras">
+            <p>Arbroath's economic potential has consistently been underdelivered on. The town has a coastline, a globally recognised golf course on its doorstep, a distinct cultural identity and a resilient population. It also has a high street that does not reflect those assets and a business community that has operated largely without meaningful council support. The gap between what Arbroath is and what it could be is not a fixed feature of the landscape. It is the result of choices made and not made over many years.</p>
+            <p>Growing the local economy requires the council to make specific decisions about where it directs its own investment, how it uses its planning powers and what conditions it creates for businesses to operate in. Each of those decisions is a choice. Jack's position is that those choices should consistently favour growth over inertia, long-term development over short-term risk aversion, and the interests of businesses and residents over administrative convenience. A council that is genuinely serious about economic growth behaves differently in planning committees, in procurement decisions and in how it manages its own estate.</p>
+            <p>The £20 million of Levelling Up investment Jack helped protect is a foundation — but only if it is spent in a way that creates lasting economic momentum rather than simply improving physical infrastructure without changing the underlying conditions. Jack's role on the Arbroath Town Board means he has direct influence over how that money lands. Investment that does not produce measurable economic activity is not success. It is a missed opportunity and one that cannot easily be repeated.</p>
+            <p>There is also a regional dimension that local government in Angus has historically been slow to engage with. The east coast of Scotland has a coherent economic story to tell — connecting Dundee, Arbroath, Montrose and beyond into a narrative of investment, opportunity and growth. Jack believes the council should be active in building those regional connections rather than treating Arbroath as an isolated unit whose economic fate is determined solely by its own boundaries. Regional economic identity matters to inward investors and to the national bodies that direct resources toward communities that can articulate a clear case for themselves.</p>
+            <p>Ultimately, economic growth in a town like Arbroath requires confidence — the confidence of businesses that investment will be supported rather than frustrated, of residents that the town is going somewhere worth staying for, and of external investors that the council is a serious partner. Building that confidence is itself a political act, and it starts with demonstrating that decisions are being made in a consistent direction over time rather than reactive to whoever is loudest at any given moment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="acc-item" id="acc-1">
+      <button class="acc-trigger" onclick="toggle('acc-1')">
+        <span class="acc-n">02</span>
+        <span class="acc-title">Better jobs, higher pay</span>
+        <div class="acc-icon"></div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-meta"><span class="acc-meta-item">Abstract: 1 min</span><span class="acc-meta-item">Full read: 4 min</span></div>
+          <p class="acc-abstract">The measure of a healthy local economy is not headline investment figures. It is whether the people who live here can access good work, earn a living wage and build a life without having to leave. Arbroath needs jobs that match people's ambitions, not just their need for employment.</p>
+          <div class="acc-sub-h">Key commitments</div>
+          <div class="acc-points">
+            <div class="acc-point">
+              <p class="acc-point-title">Attract quality employers</p>
+              <p class="acc-point-body">Work with regional partners to make Angus a genuinely attractive destination for employers offering skilled, well-paid work.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Align skills to the market</p>
+              <p class="acc-point-body">Local training provision should be shaped by what employers in growth sectors actually need, not by what programmes are easiest to fund.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Fair work in procurement</p>
+              <p class="acc-point-body">Council contracts should favour employers paying the Real Living Wage and offering fair terms to their workforce.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Retain young people</p>
+              <p class="acc-point-body">The loss of young people to other areas is both a symptom of inadequate opportunity and a cause of further decline.</p>
+            </div>
+          </div>
+          <div class="acc-sub-h">Full position</div>
+          <div class="acc-paras">
+            <p>Too many people in Arbroath work hard for wages that do not reflect the cost of living. That is not an abstract economic observation — it is a daily reality for families who cannot save, cannot access the housing market and feel that effort is not producing the outcomes it should. When working hard is insufficient to build a stable life, something has gone structurally wrong with the local economy.</p>
+            <p>The council cannot set wages directly. What it can do is use its influence as a major employer, as a procurer of services and as a planning authority to create conditions in which better-paid work becomes more available. That means being intentional about the employers it courts, the sectors it supports and the standards it sets for its own workforce and supply chain. A council that contracts with employers paying poverty wages while claiming to prioritise economic wellbeing is not being consistent.</p>
+            <p>Skills investment is the other side of this. The persistent gap between what training programmes deliver and what the labour market requires is a systemic failure with real consequences for individuals. People who complete qualifications that do not lead to employment have not been served by the system. Jack's position is that training investment should be shaped by employer demand — real, evidenced demand from businesses with current vacancies — rather than by funding availability or programme legacy. That requires a different kind of engagement with local employers than the council currently has.</p>
+            <p>The hospitality, tourism and creative sectors represent genuine growth opportunities for Arbroath that are currently underdeveloped. These are sectors where quality employment can be created relatively quickly with the right conditions, and where Arbroath has natural advantages — coastline, heritage, proximity to Carnoustie — that other towns in Angus do not share. Jack's position is that sector-specific strategies for these areas, developed with employers rather than imposed on them, would produce better outcomes than generic economic development activity.</p>
+            <p>The retention of young people is perhaps the most important long-term economic challenge Arbroath faces. A town that consistently loses its most ambitious residents to other areas will face compounding difficulties in attracting investment and maintaining the quality of its public services. Better jobs are the most durable solution. The goal should be to make staying in Arbroath a genuinely attractive choice — not just for those who cannot leave, but for those who could go anywhere and choose to remain. That is a high standard and it demands a serious, sustained response from the council and its partners.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="acc-item" id="acc-2">
+      <button class="acc-trigger" onclick="toggle('acc-2')">
+        <span class="acc-n">03</span>
+        <span class="acc-title">Lower costs, better value</span>
+        <div class="acc-icon"></div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-meta"><span class="acc-meta-item">Abstract: 1 min</span><span class="acc-meta-item">Full read: 4 min</span></div>
+          <p class="acc-abstract">Council tax and the cost of local services represent a real and growing burden for residents. The answer is not simply to raise revenue but to ensure that every pound the council spends is spent well. Value for money is a matter of basic fairness to those who fund public services.</p>
+          <div class="acc-sub-h">Key commitments</div>
+          <div class="acc-points">
+            <div class="acc-point">
+              <p class="acc-point-title">Rigorous budget scrutiny</p>
+              <p class="acc-point-body">Every line of spending should be justified against outcomes. Jack applies this standard consistently in committee.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Challenge underperformance</p>
+              <p class="acc-point-body">Where services cost more than they should or deliver less, the response must be specific — not a general acknowledgement of difficulty.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Protect front-line delivery</p>
+              <p class="acc-point-body">Efficiency savings should come from administration and management, not from the services residents use and depend on.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Transparency as standard</p>
+              <p class="acc-point-body">Residents deserve to see clearly how their money is being spent. Opacity protects inefficiency. Visibility drives improvement.</p>
+            </div>
+          </div>
+          <div class="acc-sub-h">Full position</div>
+          <div class="acc-paras">
+            <p>Residents in Arbroath West, Letham and Friockheim pay council tax and expect services in return. The relationship between what people pay and what they receive is under increasing strain — and not solely because of the national funding pressures that the council routinely cites. The quality of financial management within institutions matters. The willingness to challenge waste, to hold suppliers to contract and to question whether established ways of doing things represent good value matters. These are within the council's control.</p>
+            <p>Jack's approach to budget scrutiny is to treat every spending commitment as a hypothesis — one that should be tested against evidence of outcome. It is not sufficient to demonstrate that an activity was undertaken or a programme delivered. The question is whether it produced what it was supposed to produce, at the cost it was supposed to cost, for the people it was supposed to serve. Where the answer is no, the appropriate response is change, not continuation. Institutions that lack the discipline to ask this question tend to accumulate programmes that outlive their usefulness and costs that compound without corresponding benefit.</p>
+            <p>The protection of front-line services is a genuine priority, not a rhetorical position. When cost pressures are passed on, they tend to fall on the services that the most vulnerable residents rely on most heavily. The people least able to navigate complexity, make alternative arrangements or go without are the ones who bear the consequences of service reduction. Jack's position is that this pattern is not inevitable — it is a choice, and it is the wrong one. Savings should be found at the top, not at the point of delivery.</p>
+            <p>Transparency is the mechanism through which value for money becomes sustainable. When residents can see clearly how their money is being spent, when performance data is published in accessible form and when commitments are tracked against delivery, the incentive structure within the organisation changes. Officers who know their work will be measured and reported are subject to a different kind of accountability than those who are not. Jack has pushed for this culture shift consistently and will continue to do so, because without it the conversation about value for money remains abstract rather than actionable.</p>
+            <p>Council tax is a significant financial burden for many households in the ward. Jack does not treat increases as inevitable or as simply the consequence of external pressures beyond the council's control. Every increase should be justified by demonstrable service improvement or unavoidable cost pressures that have been rigorously challenged before being accepted. The standard should be that residents understand clearly what they are getting for what they are paying, and can see for themselves whether the deal is a fair one.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="acc-item" id="acc-3">
+      <button class="acc-trigger" onclick="toggle('acc-3')">
+        <span class="acc-n">04</span>
+        <span class="acc-title">Thriving high streets</span>
+        <div class="acc-icon"></div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-meta"><span class="acc-meta-item">Abstract: 1 min</span><span class="acc-meta-item">Full read: 4 min</span></div>
+          <p class="acc-abstract">Town centres must evolve beyond vacancy and decline. Arbroath's high street should be a place people actively choose to visit, spend time in and invest in. That requires cleaner, safer and more attractive environments backed by a council that takes commercial vitality seriously as a political priority.</p>
+          <div class="acc-sub-h">Key commitments</div>
+          <div class="acc-points">
+            <div class="acc-point">
+              <p class="acc-point-title">Tackle vacancy actively</p>
+              <p class="acc-point-body">Empty units accelerate decline. Active intervention to bring vacant properties back into productive use is a core council responsibility.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Physical environment</p>
+              <p class="acc-point-body">Cleanliness, lighting and public realm are prerequisites for commercial activity. The standard of the environment signals how seriously the town takes itself.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Levelling Up for town centre</p>
+              <p class="acc-point-body">A meaningful portion of the £20 million Jack helped protect should be directed to town centre improvements with specific, measurable commercial impact.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Enable new uses</p>
+              <p class="acc-point-body">Planning policy should enable hospitality, services, workspace and residential uses that bring life and activity to the town centre.</p>
+            </div>
+          </div>
+          <div class="acc-sub-h">Full position</div>
+          <div class="acc-paras">
+            <p>High streets across Scotland face structural challenges that no single council can fully resolve in isolation. Online retail, changing consumer behaviour, the withdrawal of anchor tenants and the rising cost of commercial property have transformed what town centres can realistically be. The question for Arbroath is not how to recreate the high street of twenty years ago — that is not possible and it should not be the goal. The question is how to build something that works for the town as it is now, with the assets and limitations it currently has.</p>
+            <p>That requires being realistic about which businesses and uses are viable in the current economic environment, and using planning powers creatively to enable them. A high street that is exclusively retail in a world where retail is declining structurally is not a sustainable model. But a town centre that combines retail, food and drink, services, community uses and carefully managed residential development can generate the kind of sustained footfall that supports commercial activity across all of those categories. Getting to that model requires active leadership from the council rather than a passive processing of planning applications.</p>
+            <p>The physical environment is not a secondary consideration. The basic quality of what people encounter when they walk through Arbroath's town centre — the cleanliness of the streets, the condition of the public realm, the standard of lighting and street furniture — directly affects whether people choose to visit, linger and spend. A town centre that looks neglected signals to potential investors and residents that investment would be wasted. Jack's position is that maintaining and improving the physical environment of the town centre is not discretionary expenditure. It is a precondition of commercial recovery.</p>
+            <p>Empty units are both a symptom of decline and an accelerant of it. When significant proportions of retail frontage are vacant, the remaining businesses suffer reduced footfall and the overall impression of the town centre deteriorates. Jack's position is that the council should use every lever available to bring vacant properties back into productive use — whether through direct engagement with landlords, through use of planning powers, or through incentive schemes that make occupation more attractive than continued vacancy. Tolerating vacancy is not neutrality. It is a choice to allow decline to continue.</p>
+            <p>The Levelling Up investment Jack helped secure for Arbroath is the most significant single opportunity to change the trajectory of the town centre in a generation. How that money is spent will determine whether the town centre looks and feels materially different in five years. Jack's role on the Arbroath Town Board gives him direct oversight of those decisions. His expectation is that the physical improvements funded by that investment will be designed to produce lasting changes in footfall, commercial activity and the overall attractiveness of the town centre — not to deliver projects that look good at a ribbon cutting and have no lasting economic effect.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="acc-item" id="acc-4">
+      <button class="acc-trigger" onclick="toggle('acc-4')">
+        <span class="acc-n">05</span>
+        <span class="acc-title">More homes, better places</span>
+        <div class="acc-icon"></div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-meta"><span class="acc-meta-item">Abstract: 1 min</span><span class="acc-meta-item">Full read: 4 min</span></div>
+          <p class="acc-abstract">Housing is the foundation of a stable life. Arbroath needs more of it — good quality, genuinely affordable and well-located. A planning system that makes it difficult to build the right homes in the right places is not serving the people who need housing most.</p>
+          <div class="acc-sub-h">Key commitments</div>
+          <div class="acc-points">
+            <div class="acc-point">
+              <p class="acc-point-title">Genuinely affordable housing</p>
+              <p class="acc-point-body">Affordable housing obligations must be met in full, not negotiated away in viability assessments.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Higher design standards</p>
+              <p class="acc-point-body">New housing should be built to standards that reflect how people actually live — not the minimum permissible under current regulations.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Proactive planning</p>
+              <p class="acc-point-body">Planning powers should shape development in the public interest, not simply process applications within statutory timescales.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Social housing maintenance</p>
+              <p class="acc-point-body">The quality of existing social housing stock must be maintained. Deferred maintenance is a false economy that worsens conditions for tenants.</p>
+            </div>
+          </div>
+          <div class="acc-sub-h">Full position</div>
+          <div class="acc-paras">
+            <p>The housing challenge in Arbroath is not simply one of quantity. It is one of affordability, quality and location. There are households in the ward who cannot access suitable housing because what is available is either too expensive for their income, too poor in condition to be acceptable or in the wrong location for their needs. These are not isolated cases. They represent a systemic failure to deliver on one of the most basic functions of a community — providing people with adequate homes.</p>
+            <p>The council's role in housing is larger than is often acknowledged. As a planning authority, it decides what gets built and where. As a landlord of social housing, it is directly responsible for the conditions in which a significant number of residents live. As a partner to housing associations, it shapes what affordable housing is delivered and to what standard. These are not passive roles. They require active leadership, clear standards and a willingness to make decisions that developers and landowners will not always welcome.</p>
+            <p>The viability assessment process — through which developers can demonstrate that meeting their affordable housing obligations would make development commercially unviable — is routinely used to reduce or eliminate affordable housing requirements. Jack's position is that the council should apply robust scrutiny to viability assessments and resist the pressure to accept reductions unless the evidence is overwhelming and independently verified. An obligation that can be negotiated away is not an obligation. Affordable housing delivered on paper but eliminated in practice is not affordable housing policy. It is the appearance of it.</p>
+            <p>Design standards matter beyond aesthetics. Housing that is poorly designed — inadequate in space, badly insulated, poorly connected to services and amenities — produces worse outcomes for residents and higher long-term costs for the public sector. The cost of retrofitting inadequate homes is greater than the cost of building them to a higher standard in the first place. Jack's view is that the council should be willing to require higher standards from developers and to reject proposals that do not meet them, even when that creates friction in the development process.</p>
+            <p>The quality and condition of existing social housing stock is as important as the delivery of new homes. Residents living in council or housing association properties have a right to a home that is maintained to a decent standard. Deferred maintenance — deferring repairs to manage short-term budget pressures — is a false economy that compounds costs, worsens conditions and damages the trust between landlord and tenant that good housing management requires. Jack's position is that the council should apply the same scrutiny to its own performance as a landlord that it applies to other service providers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="acc-item" id="acc-5">
+      <button class="acc-trigger" onclick="toggle('acc-5')">
+        <span class="acc-n">06</span>
+        <span class="acc-title">Boost tourism</span>
+        <div class="acc-icon"></div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-meta"><span class="acc-meta-item">Abstract: 1 min</span><span class="acc-meta-item">Full read: 4 min</span></div>
+          <p class="acc-abstract">Arbroath sits next to one of the world's most famous golf courses and has a coastline, a historic abbey and a distinct identity that few Scottish towns can match. Tourism has never been developed to the level these assets justify. That is a failure of ambition, not of potential.</p>
+          <div class="acc-sub-h">Key commitments</div>
+          <div class="acc-points">
+            <div class="acc-point">
+              <p class="acc-point-title">Leverage Carnoustie</p>
+              <p class="acc-point-body">The Open Championship brings global attention to this part of Scotland. Arbroath should be a natural extension of that visitor experience.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Invest in the visitor offer</p>
+              <p class="acc-point-body">The quality of what visitors find when they arrive must match the strength of what drew them. Investment in the visitor experience is investment in the economy.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Cultural assets</p>
+              <p class="acc-point-body">The Arbroath Declaration and the abbey are assets of genuine national significance. They should be promoted in a way that reflects that status.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Year-round strategy</p>
+              <p class="acc-point-body">Seasonal tourism is vulnerable. A year-round strategy requires events, accommodation and attractions that draw visitors across all twelve months.</p>
+            </div>
+          </div>
+          <div class="acc-sub-h">Full position</div>
+          <div class="acc-paras">
+            <p>Jack's role as a Director of Carnoustie Golf Links Management Committee gives him direct insight into one of Scotland's most significant tourism assets. Carnoustie Golf Links is a venue of global standing. The Open Championship, when held at Carnoustie, brings the town and surrounding area a level of international attention that most Scottish towns never experience. The question is whether Arbroath captures a meaningful share of the economic activity that attention generates — and at present, it largely does not.</p>
+            <p>Visitors to Carnoustie do not routinely extend their stays to include Arbroath. The connectivity between the two — in transport, marketing, accommodation and the quality of what visitors would find — is not good enough to make that extension feel natural or worthwhile. That is a failure of connectivity, of marketing and of the visitor offer. All three are addressable. Jack's position is that the council should work actively to close the gap, using its existing relationships with VisitScotland and national tourism bodies, its oversight of the Levelling Up investment and its role in planning and licensing to make Arbroath a more compelling destination in its own right.</p>
+            <p>The cultural assets are an underexploited foundation. The Arbroath Declaration of 1320 is one of the most significant documents in Scottish history. The abbey that forms its backdrop is a striking and atmospheric site. These assets are known among those with an interest in Scottish history, but they are not marketed with the ambition or resource that they deserve. A cultural tourism strategy built around the Declaration, the abbey, the coastline and the town's distinctive character could attract visitors who are not golfers and would not otherwise consider Arbroath.</p>
+            <p>The hospitality and accommodation infrastructure to support increased tourism is, at present, inadequate. A town that cannot house, feed and entertain visitors to a high standard will not retain them or attract return visits. Investment in the quality of accommodation, in the food and drink offer and in the overall presentation of the town is not a luxury. It is a prerequisite for a functioning tourism economy. Jack's position is that this investment should be actively supported through planning decisions, licensing policy and wherever possible through direct use of public funds.</p>
+            <p>Seasonal tourism is a structural vulnerability. A strategy that concentrates visitor activity in summer months and around major golf events is not a sustainable tourism economy — it is an occasional windfall. Year-round visitor attraction requires a different kind of investment: events programming, indoor attractions, accommodation that works in winter, and a food and drink scene that is alive outside peak season. Jack's position is that the council and its partners should develop and resource a year-round tourism strategy rather than assuming that the town's natural assets will do the work without active development.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="acc-item" id="acc-6">
+      <button class="acc-trigger" onclick="toggle('acc-6')">
+        <span class="acc-n">07</span>
+        <span class="acc-title">Fix our infrastructure</span>
+        <div class="acc-icon"></div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-meta"><span class="acc-meta-item">Abstract: 1 min</span><span class="acc-meta-item">Full read: 4 min</span></div>
+          <p class="acc-abstract">Roads, pavements, lighting and public spaces are the physical fabric of the ward. Their condition is a daily reality for every resident. Deteriorating infrastructure is not an acceptable background condition — it is a failure of basic governance that can and must be addressed.</p>
+          <div class="acc-sub-h">Key commitments</div>
+          <div class="acc-points">
+            <div class="acc-point">
+              <p class="acc-point-title">Roads and pavements</p>
+              <p class="acc-point-body">Pothole reporting has been significantly improved. The next step is ensuring repairs are completed to a standard that lasts.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Lighting and safety</p>
+              <p class="acc-point-body">Street lighting is a safety issue. Poorly lit streets deter people from using public spaces and create conditions for antisocial behaviour.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Maintenance over emergency repair</p>
+              <p class="acc-point-body">Reactive maintenance is consistently more expensive than planned maintenance. Deferring maintenance shifts costs to future budgets.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Accountability for delivery</p>
+              <p class="acc-point-body">The UK-leading reporting system Jack developed is a platform for accountability. Officers must be held to response times and repair quality standards.</p>
+            </div>
+          </div>
+          <div class="acc-sub-h">Full position</div>
+          <div class="acc-paras">
+            <p>Infrastructure is the most visible test of whether a council is doing its job. Residents do not need to read committee minutes or scrutinise performance dashboards to know whether their roads are in good condition, their pavements are safe to walk on and their public spaces are being maintained. They experience those things every day. When the answer is consistently no, the council's credibility on everything else is undermined. Good governance has to show up in the physical environment as well as in the committee room.</p>
+            <p>Jack has already driven significant improvements in this area. The pothole reporting and accountability system he pushed for is now among the most advanced of its kind in the United Kingdom, integrating public reporting with internal performance monitoring in a way that makes it materially harder for issues to be reported and then ignored. That is a genuine achievement and it has produced real improvements in response times and repair rates. But it is a platform to build from, not a completed programme. The next phase is ensuring that the quality of repairs, not just their speed, meets a standard that lasts.</p>
+            <p>The financial logic of infrastructure maintenance is straightforward and consistently ignored. Deferred maintenance — the practice of not doing work that is needed in order to reduce current expenditure — creates larger costs in the future. A pothole that costs a few hundred pounds to repair correctly will cost significantly more if it is allowed to grow, and will cost more still if it causes damage to a vehicle that results in a compensation claim. The council's practice of managing annual budget pressures through maintenance deferral is not prudent financial management. It is cost shifting onto future budgets and future residents.</p>
+            <p>Street lighting is a safety issue as much as an aesthetic one. Poorly lit streets and public spaces create conditions in which antisocial behaviour becomes more likely, in which vulnerable people feel unsafe travelling alone, and in which the physical environment signals neglect rather than care. Jack's position is that the standard of street lighting in Arbroath West, Letham and Friockheim should be sufficient for residents to feel safe using their streets at all times, and that failures should be reported, logged and repaired within a fixed and published timescale.</p>
+            <p>Beyond roads and lighting, the overall physical quality of the ward matters. The condition of parks and green spaces, the standard of street furniture, the maintenance of public buildings — all of these contribute to the impression the ward makes on residents, visitors and potential investors. Jack's position is that the standard of public infrastructure in Arbroath West, Letham and Friockheim should be one that residents are proud of, not one they have learned to accept as normal. That is not an aspirational statement — it is a baseline requirement of effective local government.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="acc-item" id="acc-7">
+      <button class="acc-trigger" onclick="toggle('acc-7')">
+        <span class="acc-n">08</span>
+        <span class="acc-title">Fix public services</span>
+        <div class="acc-icon"></div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-meta"><span class="acc-meta-item">Abstract: 1 min</span><span class="acc-meta-item">Full read: 4 min</span></div>
+          <p class="acc-abstract">Public services exist to serve the public. When they fail, the consequences fall disproportionately on those who depend on them most and have the fewest alternatives. Fixing them requires proper accountability — not periodic reviews and management reassurances that things are improving.</p>
+          <div class="acc-sub-h">Key commitments</div>
+          <div class="acc-points">
+            <div class="acc-point">
+              <p class="acc-point-title">Demand performance data</p>
+              <p class="acc-point-body">Services cannot be improved without accurate, transparent data. Jack has pushed for this standard consistently in the Communities Committee.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Protect the most vulnerable</p>
+              <p class="acc-point-body">Budget pressure must not produce reduced provision for those with the greatest need. That trade-off must be made explicit and resisted.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Scrutiny not observation</p>
+              <p class="acc-point-body">Committee oversight only has value if exercised with rigour. Receiving reports and noting them is not scrutiny.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Address institutional inertia</p>
+              <p class="acc-point-body">Not all service failure is resource-driven. Some results from poor management and institutional resistance to change. These require different responses.</p>
+            </div>
+          </div>
+          <div class="acc-sub-h">Full position</div>
+          <div class="acc-paras">
+            <p>The Communities Committee, which Jack serves as Vice-Convenor, has oversight of the delivery of local services across Angus — housing, community facilities, environmental services, local regeneration and more. These are the functions that define the practical texture of daily life for residents. When they work well, they are largely invisible. When they fail, the consequences are immediate and often serious. The committee's value lies entirely in whether it is willing and able to make the former more likely and the latter less common.</p>
+            <p>Jack's approach to this role is to treat every committee appearance by an officer as an opportunity to test whether the service is doing what it is supposed to do, at the cost it is supposed to cost, for the people it is supposed to serve. That means examining the data rather than accepting verbal reassurances, following up on commitments made in previous sessions and being willing to register formal concern when delivery consistently falls short of what was committed. It also means being honest about the distinction between failure that stems from insufficient resources and failure that stems from insufficient management — because the remedies are different and conflating them protects the wrong people.</p>
+            <p>The most important single principle is that public services exist to serve the public, not to provide employment, demonstrate organisational activity or generate committee reports. When a service is failing, the test is not whether the institution is trying hard or facing difficult circumstances. The test is whether residents are getting what they were promised. That standard is non-negotiable and should not become negotiable under pressure from officers who frame every underperformance as a resource problem.</p>
+            <p>Jack is also alert to the way in which performance data can be managed to obscure rather than reveal service quality. The choice of metrics, the timing of reporting, the framing of trend data — all of these are potential vectors for presenting a picture that is technically accurate but substantively misleading. His approach is to probe the data, ask for disaggregated figures, request comparisons with peer authorities and request independent assessment where the internal picture is unclear. The goal is not to create adversarial relationships with officers, but to ensure that the accountability function of scrutiny is actually being performed rather than simulated.</p>
+            <p>Services for the most vulnerable residents — those who rely on social care, community mental health support, housing assistance and similar provision — require particular protection. These are the services that, when reduced, produce the most serious consequences for the individuals affected and the highest downstream costs for the public sector. Jack's position is that any proposal to reduce provision for vulnerable residents must be subject to explicit scrutiny of the human consequences, not simply accepted as part of a budget process that treats all savings as equivalent.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="acc-item" id="acc-8">
+      <button class="acc-trigger" onclick="toggle('acc-8')">
+        <span class="acc-n">09</span>
+        <span class="acc-title">Raise school standards</span>
+        <div class="acc-icon"></div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="acc-meta"><span class="acc-meta-item">Abstract: 1 min</span><span class="acc-meta-item">Full read: 4 min</span></div>
+          <p class="acc-abstract">Education is the most consequential investment a community makes in its future. Every child in Arbroath West, Letham and Friockheim deserves a school experience that genuinely equips them for what comes next. Where standards fall short, the council has both the authority and the obligation to demand better.</p>
+          <div class="acc-sub-h">Key commitments</div>
+          <div class="acc-points">
+            <div class="acc-point">
+              <p class="acc-point-title">Close the attainment gap</p>
+              <p class="acc-point-body">The gap in outcomes between children from different backgrounds is a moral failure. Closing it requires targeted, evidenced intervention.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Invest in the school estate</p>
+              <p class="acc-point-body">The condition of school buildings affects the quality of learning. Investment in the estate is investment in children's outcomes.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Hold education to account</p>
+              <p class="acc-point-body">Educational performance data should be scrutinised with the same rigour applied to any other public service.</p>
+            </div>
+            <div class="acc-point">
+              <p class="acc-point-title">Teachers and leadership</p>
+              <p class="acc-point-body">Good teaching and school leadership are the most important determinants of educational outcomes. The conditions that attract and retain both must be maintained.</p>
+            </div>
+          </div>
+          <div class="acc-sub-h">Full position</div>
+          <div class="acc-paras">
+            <p>Jack sits on Angus Council's Education Committee. His interest in education is not abstract. He knows from his own experience what it means to navigate an educational system that does not always serve you well — and what difference it makes when circumstances change and the conditions finally align. Dyslexia diagnosed at twenty. A university rejection overturned by direct engagement with an admissions decision-maker. A first-class degree from an institution that was not his first choice. The system can work, but it should not require that level of persistence and self-advocacy from every student who moves through it.</p>
+            <p>His position on school standards is straightforward. Children in this ward should leave school with qualifications and capabilities that give them genuine choices about what to do next — whether that is further education, vocational training or employment. Where the evidence shows that is not happening at the rate it should, the appropriate response is specific and proportionate action, not generic reassurance that standards are on a trajectory of improvement. Trajectories are not outcomes. What matters is what individual children experience in the classrooms they attend.</p>
+            <p>The attainment gap is the most important single measure of whether the educational system is working for everyone it is supposed to serve. In every local authority area in Scotland, children from lower socioeconomic backgrounds achieve at lower rates than their more advantaged peers. That gap is not a natural feature of the system. It is a product of it, and it can be narrowed through targeted intervention, careful resource allocation and genuine commitment from elected members to hold the education service accountable for specific, evidenced improvement rather than directional movement on headline metrics.</p>
+            <p>The school estate is a dimension of this that deserves more attention than it typically receives. The physical environment in which children learn affects their ability to learn. A school that is cold, damp, poorly lit or inadequately equipped is not a neutral backdrop to the educational process. It is an active drag on it. The condition of Angus's school estate varies considerably, and the investment required to bring all buildings up to an acceptable standard is significant. Jack's position is that this investment must be treated as a priority, not deferred in favour of expenditure that is more immediately visible or politically popular.</p>
+            <p>Good teaching and effective school leadership are the most important determinants of educational outcomes — more important than buildings, technology or any other input. The conditions that attract and retain skilled teachers and effective headteachers must therefore be maintained and improved. That means workload that is manageable, professional development that is genuine rather than bureaucratic, and a relationship between the council's education service and the schools it oversees that is based on support and accountability rather than compliance and inspection. Jack's position is that the council should be a genuine partner to schools rather than a regulator of them, while maintaining the scrutiny function that holds outcomes to account.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-inner">
+    <h2 class="cta-h">Get<br>involved.</h2>
+    <div>
+      <p class="cta-p">Jack's campaign is supported by people who believe Arbroath deserves better. If these priorities matter to you, get involved.</p>
+      <div class="btns">
+        <a href="donate/" class="btn-p">Donate</a>
+        <a href="contact/" class="btn-s">Get in touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="ft-logo">Jack Cruickshanks</span>
+  <ul class="ft-links">
+    <li><a href="about/">About</a></li>
+    <li><a href="platform/">Platform</a></li>
+    <li><a href="news/">News</a></li>
+    <li><a href="contact/">Contact</a></li>
+    <li><a href="privacy/">Privacy</a></li>
+  </ul>
+
+  
+  <span class="ft-copy">© 2026 Jack Cruickshanks</span>
+</footer>
+
+<script>
+// ── ACCORDION TOGGLE ──
+function toggle(id) {
+  const item = document.getElementById(id);
+  const isOpen = item.classList.contains('open');
+
+  // close all
+  document.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+
+  if (!isOpen) {
+    item.classList.add('open');
+  } else {
+    // closing — deactivate corresponding card
+    const idx = id.replace('acc-', '');
+    const card = document.getElementById('card-' + idx);
+    if (card) card.classList.remove('active-card');
+  }
+}
+
+// ── CARD → ACCORDION ──
+function openAcc(idx) {
+  const card = document.getElementById('card-' + idx);
+  const acc  = document.getElementById('acc-' + idx);
+  const alreadyOpen = acc && acc.classList.contains('open');
+
+  // deactivate all cards
+  document.querySelectorAll('.pri-card').forEach(c => c.classList.remove('active-card'));
+  // close all accordion items
+  document.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+
+  if (!alreadyOpen) {
+    if (card) card.classList.add('active-card');
+    if (acc) {
+      acc.classList.add('open');
+      setTimeout(() => acc.scrollIntoView({ behavior:'smooth', block:'start' }), 80);
+    }
+  }
+  // if already open — clicking again collapses it and card goes white (already deactivated above)
+}
+
+// ── FADE UP ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold:0.08 });
+
+document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+</script>
+
+<script>
+(function(){
+  var p=document.getElementById('progressLine');
+  if(!p)return;
+  window.addEventListener('scroll',function(){
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    p.style.width=(max>0?(window.scrollY/max)*100:0)+'%';
+  },{passive:true});
+})();
+</script>
+<script src="assets/js/final-system.js"></script>
+</body>
+</html>
